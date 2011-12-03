@@ -3,15 +3,18 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
-
-    <mapped-superclass name="Vespolina\TaxonomyBundle\Document\TagTaxonomy" collection="vespolina_taxonomies">
-
-        <field name="id" id="true" />
-        <field name="name" fieldName="name" type="string" />
-
-        <field name="type" fieldName="type" type="int" />
+    <document name="Vespolina\TaxonomyBundle\Document\TagTaxonomy" customId="true" collection="taxonomies">
 
 
-    </mapped-superclass>
+
+
+        <field name="name" fieldName="name" type="string"  id="true" strategy="NONE"/>
+        <field name="type" fieldName="type" type="string" />
+
+        <embed-many fieldName="terms"
+                    field="terms"
+                    targetDocument="Vespolina\TaxonomyBundle\Document\Term"
+                    strategy="set"/>
+    </document>
 
 </doctrine-mongo-mapping>

@@ -3,7 +3,7 @@
 namespace Vespolina\TaxonomyBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
+use Vespolina\TaxonomyBundle\Document\Term;
 
 
 class TaxonomyTest extends WebTestCase
@@ -28,7 +28,7 @@ class TaxonomyTest extends WebTestCase
     /**
      * @covers Vespolina\TaxonomyBundle\Model\TaxonoyManager::createTaxonomy
      */
-    public function testTaxonomyCreate()
+    public function testTagTaxonomyCreate()
     {
 
         $taxonomyManager = $this->getKernel()->getContainer()->get('vespolina_taxonomy.taxonomy_manager');
@@ -36,8 +36,9 @@ class TaxonomyTest extends WebTestCase
 
         $taxonomy = $taxonomyManager->createTaxonomy('product_tags', 'tags');
 
+        $taxonomy->addTerm(new Term('women'));
+        $taxonomy->addTerm(new Term('shoes'));
 
-        $taxonomy->setName('product_tags');
 
         $taxonomyManager->updateTaxonomy($taxonomy);
 

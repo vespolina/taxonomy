@@ -37,6 +37,7 @@ class TaxonomyManager extends BaseTaxonomyManager
     public function createTaxonomy($name, $type)
     {
         //TODO: Factory
+        $taxonomy = null;
 
         switch ($type) {
 
@@ -44,10 +45,17 @@ class TaxonomyManager extends BaseTaxonomyManager
                 break;
             case 'tags':
 
-                return new TagTaxonomy();
+                $taxonomy = new TagTaxonomy();
                 break;
         }
 
+        if ($taxonomy) {
+
+            $taxonomy->setName($name);
+            $taxonomy->setType($type);
+        }
+
+        return $taxonomy;
     }
 
     /**

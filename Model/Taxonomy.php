@@ -17,6 +17,7 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 {
     protected $numberOfTerms;
     protected $name;
+    protected $terms;
     protected $type;
 
 
@@ -43,6 +44,7 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 
         return $this->numberOfTerms;
     }
+
 
     /**
       * @inheritdoc

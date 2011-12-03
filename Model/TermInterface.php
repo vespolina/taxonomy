@@ -13,6 +13,8 @@ namespace Vespolina\TaxonomyBundle\Model;
 interface TermInterface
 {
 
+    function getCode();
+
     /**
      * Get the taxonomy name
      * eg. product_hierarchy
@@ -20,9 +22,10 @@ interface TermInterface
      * @abstract
      * @return string
      */
-    public function getName();
+    function getName();
 
+    function setCode($code);
 
-    public function setName($name);
+    function setName($name);
 
 }
