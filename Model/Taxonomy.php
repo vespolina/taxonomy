@@ -64,12 +64,18 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
         $this->name = $name;
     }
 
+    /**
+      * @inheritdoc
+      */
     public function setNumberOfTerms($numberOfTerms)
     {
 
         $this->numberOfTerms;
     }
 
+     /**
+      * @inheritdoc
+      */
     public function setType($type)
     {
 

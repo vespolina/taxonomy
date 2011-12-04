@@ -27,6 +27,8 @@ use Vespolina\TaxonomyBundle\Model\Taxonomy;
     {
 
         $this->terms[$term->getCode()] = $term;
+
+        $this->setNumberOfTerms(count($this->terms));
     }
 
     public function getTerms($level = null)

@@ -7,6 +7,7 @@
  */
 namespace Vespolina\TaxonomyBundle\Document;
 
+use Vespolina\TaxonomyBundle\Document\Term;
 use Vespolina\TaxonomyBundle\Model\TagTaxonomy as AbstractTagTaxonomy;
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -15,4 +16,12 @@ use Vespolina\TaxonomyBundle\Model\TagTaxonomy as AbstractTagTaxonomy;
 class TagTaxonomy extends AbstractTagTaxonomy
 {
     protected $id;
+
+
+    public function createTerm($type, $name)
+    {
+
+        return new Term($type, $name);
+
+    }
 }

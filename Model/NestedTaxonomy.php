@@ -28,12 +28,9 @@ use Vespolina\TaxonomyBundle\Model\Taxonomy;
 
         if ($parent) {
 
-            $materializedPath = $parent->getCode();
 
-            if (array_key_exists($materializedPath, $this->terms)) {
+            //TODO
 
-                $this->terms[$materializedPath]->addTerm($term);
-            }
         } else {
 
             $this->terms[$term->getCode()] = $term;

@@ -19,7 +19,7 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
     protected $name;
 
 
-    public function __construct($code = null, $name = null)
+    public function __construct($code, $name = null)
     {
 
         $this->code = $code;
