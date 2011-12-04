@@ -3,6 +3,7 @@
 namespace Vespolina\TaxonomyBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Vespolina\TaxonomyBundle\Document\NestedTerm;
 use Vespolina\TaxonomyBundle\Document\Term;
 
 
@@ -33,15 +34,38 @@ class TaxonomyTest extends WebTestCase
 
         $taxonomyManager = $this->getKernel()->getContainer()->get('vespolina_taxonomy.taxonomy_manager');
 
+        //Tags (flat) taxonomy
 
-        $taxonomy = $taxonomyManager->createTaxonomy('product_tags', 'tags');
+        $productTaxonomy = $taxonomyManager->createTaxonomy('product_tags', 'tags');
 
-        $taxonomy->addTerm(new Term('women'));
-        $taxonomy->addTerm(new Term('shoes'));
+        $productTaxonomy->addTerm(new Term('women'));
+        $productTaxonomy->addTerm(new Term('shoes'));
+    }
+
+    /**
+     * @covers Vespolina\TaxonomyBundle\Model\TaxonoyManager::createTaxonomy
+     */
+    public function testNestedTaxonomyCreate()
+    {
+
+        $taxonomyManager = $this->getKernel()->getContainer()->get('vespolina_taxonomy.taxonomy_manager');
 
 
-        $taxonomyManager->updateTaxonomy($taxonomy);
+        $customerTaxonomy = $taxonomyManager->createTaxonomy('customer_hierarchy', 'nested');
 
-        
+        $customerTaxonomy->addTerm(new NestedTerm('small_companies'));
+        $customerTaxonomy->addTerm(new NestedTerm('medium_companies'));
+        $customerTaxonomy->addTerm(new NestedTerm('big_companies'));
+        $customerTaxonomy->addTerm(new NestedTerm('huge_companies'));
+
+
+        $smallCompaniesTerm = $customerTaxonomy->findTermByPath('small_companies');
+
+
+
+
+        $taxonomyManager->updateTaxonomy($customerTaxonomy);
+
+
     }
 }

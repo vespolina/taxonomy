@@ -9,8 +9,8 @@ namespace Vespolina\TaxonomyBundle\Document;
 
 use Symfony\Component\DependencyInjection\Container;
 
+use Vespolina\TaxonomyBundle\Document\NestedTaxonomy;
 use Vespolina\TaxonomyBundle\Document\TagTaxonomy;
-use Vespolina\TaxonomyBundle\Document\Taxonomy;
 use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 use Vespolina\TaxonomyBundle\Model\TaxonomyManager as BaseTaxonomyManager;
 /**
@@ -41,8 +41,11 @@ class TaxonomyManager extends BaseTaxonomyManager
 
         switch ($type) {
 
-            case 'hierarchy';
+            case 'nested';
+
+                $taxonomy = new NestedTaxonomy();
                 break;
+
             case 'tags':
 
                 $taxonomy = new TagTaxonomy();

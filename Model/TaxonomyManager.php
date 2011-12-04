@@ -31,7 +31,7 @@ abstract class TaxonomyManager implements TaxonomyManagerInterface
 
 
         switch($taxonomy->getType) {
-            case 'hierarchy':
+            case 'nested':
                 break;
             case 'tags':
 
