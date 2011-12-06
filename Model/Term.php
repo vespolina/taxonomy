@@ -17,6 +17,7 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
 {
     protected $code;
     protected $name;
+    protected $properties;
 
 
     public function __construct($code, $name = null)
@@ -25,6 +26,19 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
         $this->code = $code;
         $this->name = $name;
 
+    }
+
+     /**
+      * @inheritdoc
+      */
+    public function addProperty($name, $value)
+    {
+        if (!$this->properties) {
+
+            $this->properties = array();
+        }
+
+        $this->properties[$name] = $value;
     }
 
      /**
@@ -40,11 +54,20 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
     /**
      * @inheritdoc
      */
-    public function getName()
-    {
+     public function getName()
+     {
 
         return $this->name;
-    }
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function getProperties()
+     {
+
+         return $this->properties;
+     }
 
      /**
       * @inheritdoc

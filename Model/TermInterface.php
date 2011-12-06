@@ -12,6 +12,15 @@ namespace Vespolina\TaxonomyBundle\Model;
  */
 interface TermInterface
 {
+    /**
+     * Add a term property
+     *
+     * @abstract
+     * @param $name
+     * @param $value
+     */
+    function addProperty($name, $value);
+
 
     function getCode();
 
@@ -23,6 +32,15 @@ interface TermInterface
      * @return string
      */
     function getName();
+
+    /**
+     * Retrieve all properties
+     *
+     * @abstract
+     *
+     */
+    function getProperties();
+
 
     function setCode($code);
 

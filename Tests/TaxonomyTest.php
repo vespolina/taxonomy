@@ -38,9 +38,32 @@ class TaxonomyTest extends WebTestCase
 
         $productTaxonomy = $taxonomyManager->createTaxonomy('product_tags', 'tags');
 
-        $productTaxonomy->addTerm($productTaxonomy->createTerm('women', 'Women'));
-        $productTaxonomy->addTerm($productTaxonomy->createTerm('shoes', 'Shoes'));
+        $dressesTerm = $productTaxonomy->createTerm('dresses', 'Women dresses');
+        $productTaxonomy->addTerm($dressesTerm);
+
+        $shoesTerm = $productTaxonomy->createTerm('shoes', 'Shoes');
+        $productTaxonomy->addTerm($shoesTerm);
+
+
+        $terms = $productTaxonomy->getTerms();
+
+        $this->assertEquals(count($terms), 2);
+
+        /**
+         * Next we associate properties to terms.  This allows us to set default properties to collections associated
+         * by a given term
+         * Eg.  Products could be associated with the term 'dresses'.  Hence they would share the property 'default_vat'
+         * having value 21.
+         */
+        $dressesTerm->addProperty('default_vat', 21);
+        $dressesTerm->addProperty('default_shipping_method', 'cash_on_delivery');
+
+        $shoesTerm->addProperty('default_vat', 20);
+        $shoesTerm->addProperty('default_shipping_method', '24h_delivery');
+
+        $taxonomyManager->updateTaxonomy($productTaxonomy);
     }
+
 
     /**
      * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTaxonomy
