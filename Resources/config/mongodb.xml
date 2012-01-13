@@ -5,14 +5,17 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="vespolina_taxonomy.taxonomy_manager.class">Vespolina\TaxonomyBundle\Document\TaxonomyManager</parameter>
-        <parameter key="vespolina_taxonomy.model.taxonomy.class">Vespolina\TaxonomyBundle\Document\Taxonomy</parameter>
+        <parameter key="vespolina.taxonomy.taxonomy_manager.class">Vespolina\TaxonomyBundle\Document\TaxonomyManager</parameter>
+        <parameter key="vespolina.taxonomy.model.nested_taxonomy.class">Vespolina\TaxonomyBundle\Document\NestedTaxonomy</parameter>
+        <parameter key="vespolina.taxonomy.model.tag_taxonomy.class">Vespolina\TaxonomyBundle\Document\TagTaxonomy</parameter>
     </parameters>
 
     <services>
-        <service id="vespolina_taxonomy.taxonomy_manager" class="%vespolina_taxonomy.taxonomy_manager.class%">
-            <argument type="service" id="service_container" />
+        <service id="vespolina.taxonomy.taxonomy_manager" class="%vespolina.taxonomy.taxonomy_manager.class%">
+            <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
+            <argument>%vespolina.taxonomy.model.nested_taxonomy.class%</argument>
+            <argument>%vespolina.taxonomy.model.tag_taxonomy.class%</argument>
         </service>
-        <service id="vespolina_taxonomy.order_manager" alias="vespolina_taxonomy.taxonomy_manager" />
+        <service id="vespolina_taxonomy.taxonomy_manager" alias="vespolina.taxonomy.taxonomy_manager" />
     </services>
 </container>

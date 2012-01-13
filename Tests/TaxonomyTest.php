@@ -62,6 +62,19 @@ class TaxonomyTest extends WebTestCase
         $shoesTerm->addProperty('default_shipping_method', '24h_delivery');
 
         $taxonomyManager->updateTaxonomy($productTaxonomy);
+
+
+        //Retrieve the taxonomy we just created
+        $aProductTaxonomy = $taxonomyManager->findTaxonomyById('product_tags');
+        $this->assertEquals(count($aProductTaxonomy->getTerms()), 2);
+
+        foreach($aProductTaxonomy->getTerms() as $term) {
+            if ($term->getName() == 'dresses') {
+                $this->assertEquals(count($term->getProperties()), 2);
+            }
+        }
+
+
     }
 
 

@@ -7,6 +7,7 @@
 
         <field name="code" fieldName="code" type="string" id="true"/>
         <field name="name" fieldName="name" type="string" />
+        <field name="properties" fieldName="properties" type="hash" nullable="true" />
 
     </embedded-document>
 

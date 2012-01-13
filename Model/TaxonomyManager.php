@@ -18,18 +18,49 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyManagerInterface;
  */
 abstract class TaxonomyManager implements TaxonomyManagerInterface
 {
-    protected $container;
+    protected $tagTaxonomyClass;
+    protected $nestedTaxonomyClass;
 
-    public function __construct(Container $container) {
+    public function __construct($nestedTaxonomyClass, $tagTaxonomyClass) {
 
-        $this->container = $container;
+        $this->nestedTaxonomyClass = $nestedTaxonomyClass;
+        $this->tagTaxonomyClass = $tagTaxonomyClass;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function createTaxonomy($name, $type)
+    {
+        //TODO: Factory
+        $taxonomyClass = null;
+
+        switch ($type) {
+
+            case 'nested':
+
+                $taxonomyClass = $this->nestedTaxonomyClass;
+                break;
+
+            case 'tags':
+
+                $taxonomyClass = $this->tagTaxonomyClass;
+                break;
+        }
+
+        if ($taxonomyClass) {
+
+            $taxonomy = new $taxonomyClass();
+            $taxonomy->setName($name);
+            $taxonomy->setType($type);
+
+            return $taxonomy;
+        }
+
+    }
 
     public function createTerm(TaxonomyInterface $taxonomy)
     {
-
-
         switch($taxonomy->getType) {
             case 'nested':
                 break;

@@ -25,7 +25,6 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
 
         $this->code = $code;
         $this->name = $name;
-
     }
 
      /**

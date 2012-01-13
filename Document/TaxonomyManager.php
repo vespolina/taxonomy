@@ -7,6 +7,7 @@
  */
 namespace Vespolina\TaxonomyBundle\Document;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\DependencyInjection\Container;
 
 use Vespolina\TaxonomyBundle\Document\NestedTaxonomy;
@@ -20,53 +21,26 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyManager as BaseTaxonomyManager;
 class TaxonomyManager extends BaseTaxonomyManager
 {
     protected $dm;
-    protected $primaryIdentifier;
-    protected $salesTaxonomyRepo;
+    protected $taxonomyRepo;
     
-    public function __construct(Container $container)
+    public function __construct(DocumentManager $dm, $nestedTaxonomyClass, $tagTaxonomyClass)
     {
-        $this->dm = $container->get('doctrine.odm.mongodb.default_document_manager');
-        //$this->salesTaxonomyRepo = $this->dm->getRepository('Vespolina\TaxonomyBundle\Document\Taxonomy'); // TODO make configurable
 
-        parent::__construct($container);
+        $this->dm = $dm;
+        $this->taxonomyRepo = $this->dm->getRepository($tagTaxonomyClass);
+
+        parent::__construct($nestedTaxonomyClass, $tagTaxonomyClass);
+
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function createTaxonomy($name, $type)
-    {
-        //TODO: Factory
-        $taxonomy = null;
 
-        switch ($type) {
-
-            case 'nested';
-
-                $taxonomy = new NestedTaxonomy();
-                break;
-
-            case 'tags':
-
-                $taxonomy = new TagTaxonomy();
-                break;
-        }
-
-        if ($taxonomy) {
-
-            $taxonomy->setName($name);
-            $taxonomy->setType($type);
-        }
-
-        return $taxonomy;
-    }
 
     /**
      * @inheritdoc
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return $this->TaxonomyRepo->findBy($criteria, $orderBy, $limit, $offset);
+        return $this->taxonomyRepo->findBy($criteria, $orderBy, $limit, $offset);
     }
 
     /**
@@ -75,7 +49,7 @@ class TaxonomyManager extends BaseTaxonomyManager
     public function findTaxonomyById($id)
     {
 
-        return $this->TaxonomyRepo->find($id);
+        return $this->taxonomyRepo->find($id);
     }
 
     /**
