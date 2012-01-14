@@ -7,20 +7,14 @@
  */
 namespace Vespolina\TaxonomyBundle\Document;
 
-use Vespolina\TaxonomyBundle\Document\NestedTerm;
-use Vespolina\TaxonomyBundle\Model\NestedTaxonomy as AbstractNestedTaxonomy;
+use Vespolina\TaxonomyBundle\Document\Term;
+use Vespolina\TaxonomyBundle\Model\Taxonomy as AbstractTaxonomy;
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
 
-class NestedTaxonomy extends AbstractNestedTaxonomy
+class Taxonomy extends AbstractTaxonomy
 {
     protected $id;
 
-    public function createTerm($type, $name)
-    {
-
-        return new NestedTerm($type, $name);
-
-    }
 }

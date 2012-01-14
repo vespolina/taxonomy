@@ -21,9 +21,6 @@ interface TermInterface
      */
     function addProperty($name, $value);
 
-
-    function getCode();
-
     /**
      * Get the taxonomy name
      * eg. product_hierarchy
@@ -33,6 +30,8 @@ interface TermInterface
      */
     function getName();
 
+    function getPath();
+
     /**
      * Retrieve all properties
      *
@@ -41,9 +40,8 @@ interface TermInterface
      */
     function getProperties();
 
-
-    function setCode($code);
-
     function setName($name);
+
+    function setPath($path);
 
 }

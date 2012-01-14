@@ -9,8 +9,6 @@ namespace Vespolina\TaxonomyBundle\Model;
 
 use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 use Vespolina\TaxonomyBundle\Model\TaxonomyManagerInterface;
-use Vespolina\TaxonomyBundle\Model\Identifier\IdentifierInterface;
-use Vespolina\TaxonomyBundle\Model\Identifier\TaxonomyIdentifierSetInterface;
 /**
  * @author Richard Shank <develop@zestic.com>
  */

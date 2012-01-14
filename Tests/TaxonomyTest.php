@@ -36,12 +36,12 @@ class TaxonomyTest extends WebTestCase
 
         //Tags (flat) taxonomy
 
-        $productTaxonomy = $taxonomyManager->createTaxonomy('product_tags', 'tags');
+        $productTaxonomy = $taxonomyManager->createTaxonomy('product', 'tags');
 
-        $dressesTerm = $productTaxonomy->createTerm('dresses', 'Women dresses');
+        $dressesTerm = $taxonomyManager->createTerm('Women dresses');
         $productTaxonomy->addTerm($dressesTerm);
 
-        $shoesTerm = $productTaxonomy->createTerm('shoes', 'Shoes');
+        $shoesTerm = $taxonomyManager->createTerm('Shoes');
         $productTaxonomy->addTerm($shoesTerm);
 
 
@@ -65,7 +65,8 @@ class TaxonomyTest extends WebTestCase
 
 
         //Retrieve the taxonomy we just created
-        $aProductTaxonomy = $taxonomyManager->findTaxonomyById('product_tags');
+        $aProductTaxonomy = $taxonomyManager->findTaxonomyById('product');
+        $this->assertNotNull($aProductTaxonomy);
         $this->assertEquals(count($aProductTaxonomy->getTerms()), 2);
 
         foreach($aProductTaxonomy->getTerms() as $term) {
@@ -77,26 +78,4 @@ class TaxonomyTest extends WebTestCase
 
     }
 
-
-    /**
-     * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTaxonomy
-     */
-    public function testNestedTaxonomyCreate()
-    {
-
-        $taxonomyManager = $this->getKernel()->getContainer()->get('vespolina_taxonomy.taxonomy_manager');
-
-
-        $customerTaxonomy = $taxonomyManager->createTaxonomy('customer_hierarchy', 'nested');
-
-        $customerTaxonomy->addTerm($customerTaxonomy->createTerm('small_companies', 'Small Companies'));
-        $customerTaxonomy->addTerm($customerTaxonomy->createTerm('medium_companies', 'Medium Companies'));
-        $customerTaxonomy->addTerm($customerTaxonomy->createTerm('big_companies', 'Big Companies'));
-
-        $smallCompaniesTerm = $customerTaxonomy->findTermByPath('small_companies');
-
-        $taxonomyManager->updateTaxonomy($customerTaxonomy);
-
-
-    }
 }

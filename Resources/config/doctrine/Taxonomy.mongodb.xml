@@ -3,10 +3,7 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
-    <document name="Vespolina\TaxonomyBundle\Document\TagTaxonomy" customId="true" collection="vespolinaTaxonomy">
-
-
-
+    <document name="Vespolina\TaxonomyBundle\Document\Taxonomy" customId="true" collection="vespolinaTaxonomy">
 
         <field name="name" fieldName="name" type="string"  id="true" strategy="NONE"/>
         <field name="type" fieldName="type" type="string" />

@@ -41,6 +41,8 @@ interface TaxonomyInterface
      */
     function getNumberOfTerms();
 
+    function getTerms($level = null);
+
     /**
      * Retrieve the taxonomy type
      *
@@ -51,10 +53,6 @@ interface TaxonomyInterface
      * @abstract
      *
      */
-
-    function getTerms($level = null);
-
-
     function getType();
     
     

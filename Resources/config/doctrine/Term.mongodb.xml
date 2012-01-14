@@ -5,10 +5,14 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="Vespolina\TaxonomyBundle\Document\Term">
 
-        <field name="code" fieldName="code" type="string" id="true"/>
         <field name="name" fieldName="name" type="string" />
-        <field name="properties" fieldName="properties" type="hash" nullable="true" />
+        <field name="path" fieldName="path" type="string" id="true"/>
+        <field name="properties" fieldName="properties" type="hash"/>
 
+        <embed-many fieldName="terms"
+                    field="terms"
+                    targetDocument="Vespolina\TaxonomyBundle\Document\Term"
+                    strategy="set"/>
     </embedded-document>
 
 </doctrine-mongo-mapping>

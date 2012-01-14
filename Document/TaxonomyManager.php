@@ -23,13 +23,13 @@ class TaxonomyManager extends BaseTaxonomyManager
     protected $dm;
     protected $taxonomyRepo;
     
-    public function __construct(DocumentManager $dm, $nestedTaxonomyClass, $tagTaxonomyClass)
+    public function __construct(DocumentManager $dm, $taxonomyClass, $termClass)
     {
 
         $this->dm = $dm;
-        $this->taxonomyRepo = $this->dm->getRepository($tagTaxonomyClass);
+        $this->taxonomyRepo = $this->dm->getRepository($taxonomyClass);
 
-        parent::__construct($nestedTaxonomyClass, $tagTaxonomyClass);
+        parent::__construct($taxonomyClass, $termClass);
 
     }
 
@@ -50,14 +50,6 @@ class TaxonomyManager extends BaseTaxonomyManager
     {
 
         return $this->taxonomyRepo->find($id);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function findTaxonomyByIdentifier($name, $code)
-    {
-
     }
 
     /**

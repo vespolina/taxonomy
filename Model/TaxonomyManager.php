@@ -18,13 +18,28 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyManagerInterface;
  */
 abstract class TaxonomyManager implements TaxonomyManagerInterface
 {
-    protected $tagTaxonomyClass;
-    protected $nestedTaxonomyClass;
+    protected $taxonomyClass;
+    protected $termClass;
 
-    public function __construct($nestedTaxonomyClass, $tagTaxonomyClass) {
+    public function __construct($taxonomyClass, $termClass) {
 
-        $this->nestedTaxonomyClass = $nestedTaxonomyClass;
-        $this->tagTaxonomyClass = $tagTaxonomyClass;
+        $this->taxonomyClass = $taxonomyClass;
+        $this->termClass = $termClass;
+    }
+
+
+    public function addTerm(TermInterface $term, TermInterface $parent = null)
+    {
+
+        if ($parent) {
+
+
+            //TODO
+
+        } else {
+
+            $this->terms[$term->getPath()] = $term;
+        }
     }
 
     /**
@@ -32,42 +47,25 @@ abstract class TaxonomyManager implements TaxonomyManagerInterface
      */
     public function createTaxonomy($name, $type)
     {
-        //TODO: Factory
-        $taxonomyClass = null;
 
-        switch ($type) {
-
-            case 'nested':
-
-                $taxonomyClass = $this->nestedTaxonomyClass;
-                break;
-
-            case 'tags':
-
-                $taxonomyClass = $this->tagTaxonomyClass;
-                break;
-        }
-
-        if ($taxonomyClass) {
+        if ($taxonomyClass = $this->taxonomyClass) {
 
             $taxonomy = new $taxonomyClass();
+
             $taxonomy->setName($name);
             $taxonomy->setType($type);
 
             return $taxonomy;
         }
+   }
 
-    }
-
-    public function createTerm(TaxonomyInterface $taxonomy)
+    public function createTerm($name)
     {
-        switch($taxonomy->getType) {
-            case 'nested':
-                break;
-            case 'tags':
+        if ($termClass = $this->termClass) {
 
+            $term = new $termClass($name);
 
-                break;
+            return $term;
         }
     }
 

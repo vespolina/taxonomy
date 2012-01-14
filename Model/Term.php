@@ -8,6 +8,7 @@
 
 namespace Vespolina\TaxonomyBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Vespolina\TaxonomyBundle\Model\TermInterface;
 
 /**
@@ -15,16 +16,16 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
  */
  abstract class Term implements TermInterface
 {
-    protected $code;
     protected $name;
+    protected $path;
     protected $properties;
+    protected $terms;
 
-
-    public function __construct($code, $name = null)
+    public function __construct($name)
     {
 
-        $this->code = $code;
         $this->name = $name;
+        $this->terms = new ArrayCollection();
     }
 
      /**
@@ -40,23 +41,20 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
         $this->properties[$name] = $value;
     }
 
-     /**
-      * @inheritdoc
-      */
-     public function getCode()
-     {
-
-         return $this->code;
-     }
-
-
     /**
      * @inheritdoc
      */
      public function getName()
      {
-
         return $this->name;
+     }
+
+     /**
+      * @inheritdoc
+      */
+     public function getPath()
+     {
+         return $this->path;
      }
 
      /**
@@ -64,17 +62,15 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
       */
      public function getProperties()
      {
-
          return $this->properties;
      }
 
      /**
       * @inheritdoc
       */
-     public function setCode($code)
+     public function getTerms()
      {
-
-         $this->code = $code;
+         return $this->terms;
      }
 
     /**
@@ -85,6 +81,15 @@ use Vespolina\TaxonomyBundle\Model\TermInterface;
 
         $this->name = $name;
     }
+
+     /**
+      * @inheritdoc
+      */
+     public function setPath($path)
+     {
+
+         $this->path = $path;
+     }
 
 
 }

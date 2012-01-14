@@ -26,13 +26,30 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 
     }
 
+    public function addTerm(TermInterface $term, TermInterface $parentTerm = null)
+    {
+        if (!$path = $term->getPath())
+        {
+            $path = $this->slugify($term->getName());
+            $term->setPath($path);
+        }
+
+
+        if ($parentTerm) {
+
+        }
+        else{
+
+            $this->terms[$path] = $term;
+        }
+    }
+
 
     /**
      * @inheritdoc
      */
     public function getName()
     {
-
         return $this->name;
     }
 
@@ -41,8 +58,15 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
      */
     public function getNumberOfTerms()
     {
-
         return $this->numberOfTerms;
+    }
+
+     /**
+       * @inheritdoc
+       */
+    public function getTerms($level = null)
+    {
+        return $this->terms;
     }
 
 
@@ -51,7 +75,6 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
       */
     public function getType()
     {
-
         return $this->type;
     }
 
@@ -81,5 +104,10 @@ use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
 
         $this->type = $type;
     }
+
+     protected function slugify($text)
+     {
+         return preg_replace('/[^a-z0-9_\s-]/', '', preg_replace("/[\s_]/", "-", preg_replace('!\s+!', ' ', strtolower(trim($text)))));
+     }
 
 }
