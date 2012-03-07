@@ -16,6 +16,6 @@
             <argument>%vespolina.taxonomy.model.taxonomy.class%</argument>
             <argument>%vespolina.taxonomy.model.term.class%</argument>
         </service>
-        <service id="vespolina_taxonomy.taxonomy_manager" alias="vespolina.taxonomy.taxonomy_manager" />
+        <service id="vespolina.taxonomy_manager" alias="vespolina.taxonomy.taxonomy_manager" />
     </services>
 </container>
