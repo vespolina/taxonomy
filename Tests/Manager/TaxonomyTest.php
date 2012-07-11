@@ -1,38 +1,22 @@
 <?php
 
-namespace Vespolina\TaxonomyBundle\Tests;
+namespace Vespolina\TaxonomyBundle\Tests\Manager;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Vespolina\TaxonomyBundle\Document\NestedTerm;
+use Vespolina\TaxonomyBundle\Tests\TaxonomyTestCommon;
 use Vespolina\TaxonomyBundle\Document\Term;
 
 
-class TaxonomyTest extends WebTestCase
+class TaxonomyTest extends TaxonomyTestCommon
 {
-    protected $client;
-
-    public function setUp()
-    {
-        $this->client = $this->createClient();
-    }
-
-    public function getKernel(array $options = array())
-    {
-        if (!self::$kernel) {
-            self::$kernel = $this->createKernel($options);
-            self::$kernel->boot();
-        }
-
-        return self::$kernel;
-    }
 
     /**
-     * @covers Vespolina\TaxonomyBundle\Model\TaxonoyManager::createTaxonomy
+     * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTaxonomy
+     * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTerm
      */
     public function testTagTaxonomyCreate()
     {
 
-        $taxonomyManager = $this->getKernel()->getContainer()->get('vespolina_taxonomy.taxonomy_manager');
+        $taxonomyManager = $this->createTaxonomyManager();
 
         //Tags (flat) taxonomy
 
@@ -61,15 +45,9 @@ class TaxonomyTest extends WebTestCase
         $shoesTerm->addProperty('default_vat', 20);
         $shoesTerm->addProperty('default_shipping_method', '24h_delivery');
 
-        $taxonomyManager->updateTaxonomy($productTaxonomy);
+        $this->assertEquals(count($productTaxonomy->getTerms()), 2);
 
-
-        //Retrieve the taxonomy we just created
-        $aProductTaxonomy = $taxonomyManager->findTaxonomyById('product');
-        $this->assertNotNull($aProductTaxonomy);
-        $this->assertEquals(count($aProductTaxonomy->getTerms()), 2);
-
-        foreach($aProductTaxonomy->getTerms() as $term) {
+        foreach($productTaxonomy->getTerms() as $term) {
             if ($term->getName() == 'dresses') {
                 $this->assertEquals(count($term->getProperties()), 2);
             }
