@@ -12,7 +12,7 @@
 
     <services>
         <service id="vespolina.taxonomy.taxonomy_manager" class="%vespolina.taxonomy.taxonomy_manager.class%">
-            <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
+            <argument type="service" id="doctrine_mongodb.odm.default_document_manager" />
             <argument>%vespolina.taxonomy.model.taxonomy.class%</argument>
             <argument>%vespolina.taxonomy.model.term.class%</argument>
         </service>
