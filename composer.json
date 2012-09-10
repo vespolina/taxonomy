@@ -1,0 +1,21 @@
+{
+    "name": "vespolina/taxonomjy",
+    "description": "Vespolina library for Taxonomy",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/favouritefruit/FruitFOPBundle/contributors"
+        }
+    ],
+    "keywords": ["Vespolina", "taxonomy", "terms", "tags", "hierarchy"],
+    "require": {
+        "php":     ">=5.3.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Vespolina": "lib/"
+        }
+    }
+}
