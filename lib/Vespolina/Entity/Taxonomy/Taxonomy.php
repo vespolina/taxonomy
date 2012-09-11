@@ -6,9 +6,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\TaxonomyBundle\Model;
+namespace Vespolina\EntityTaxonomy;
 
-use Vespolina\TaxonomyBundle\Model\TaxonomyInterface;
+use Vespolina\EntityTaxonomy\TaxonomyInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>

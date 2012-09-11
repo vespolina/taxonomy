@@ -6,10 +6,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\TaxonomyBundle\Model;
+namespace Vespolina\EntityTaxonomy;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Vespolina\TaxonomyBundle\Model\TermInterface;
+use Vespolina\EntityTaxonomy\TermInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>

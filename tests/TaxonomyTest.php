@@ -10,8 +10,8 @@ class TaxonomyTest extends TaxonomyTestCommon
 {
 
     /**
-     * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTaxonomy
-     * @covers Vespolina\TaxonomyBundle\Model\TaxonomyManager::createTerm
+     * @covers Vespolina\EntityTaxonomy\TaxonomyManager::createTaxonomy
+     * @covers Vespolina\EntityTaxonomy\TaxonomyManager::createTerm
      */
     public function testTagTaxonomyCreate()
     {
