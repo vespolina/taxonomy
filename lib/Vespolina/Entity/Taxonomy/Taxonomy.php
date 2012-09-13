@@ -6,30 +6,30 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\EntityTaxonomy;
+namespace Vespolina\Entity\Taxonomy;
 
 use Vespolina\EntityTaxonomy\TaxonomyInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
- abstract class Taxonomy implements TaxonomyInterface
+class Taxonomy implements TaxonomyInterface
 {
+    protected $isHierarchical;
     protected $numberOfTerms;
     protected $name;
     protected $terms;
     protected $type;
 
-
-    public function __construct()
+    public function __construct(boolean $isHierarchical = false)
     {
-
+        $this->isHierarchical = $isHierarchical;
     }
 
-    public function addTerm(TermInterface $term, TermInterface $parentTerm = null)
+    public function addTerm(TermInterface $term)
     {
-        if (!$path = $term->getPath())
-        {
+
+        if (!$path = $term->getPath()) {
             $path = $this->slugify($term->getName());
             $term->setPath($path);
         }
@@ -43,7 +43,6 @@ use Vespolina\EntityTaxonomy\TaxonomyInterface;
             $this->terms[$path] = $term;
         }
     }
-
 
     /**
      * @inheritdoc
@@ -85,15 +84,6 @@ use Vespolina\EntityTaxonomy\TaxonomyInterface;
     {
 
         $this->name = $name;
-    }
-
-    /**
-      * @inheritdoc
-      */
-    public function setNumberOfTerms($numberOfTerms)
-    {
-
-        $this->numberOfTerms;
     }
 
      /**

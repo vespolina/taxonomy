@@ -6,26 +6,24 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Vespolina\EntityTaxonomy;
+namespace Vespolina\Entity\Taxonomy;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Vespolina\EntityTaxonomy\TermInterface;
+use Vespolina\Entity\Taxonomy\TermInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
- abstract class Term implements TermInterface
+class Term implements TermInterface
 {
+    protected $children;
     protected $name;
     protected $path;
     protected $properties;
-    protected $terms;
+    protected $parent;
 
     public function __construct($name)
     {
-
         $this->name = $name;
-        $this->terms = new ArrayCollection();
     }
 
      /**
@@ -33,11 +31,6 @@ use Vespolina\EntityTaxonomy\TermInterface;
       */
     public function addProperty($name, $value)
     {
-        if (!$this->properties) {
-
-            $this->properties = array();
-        }
-
         $this->properties[$name] = $value;
     }
 
@@ -78,7 +71,6 @@ use Vespolina\EntityTaxonomy\TermInterface;
      */
     public function setName($name)
     {
-
         $this->name = $name;
     }
 
@@ -87,9 +79,6 @@ use Vespolina\EntityTaxonomy\TermInterface;
       */
      public function setPath($path)
      {
-
          $this->path = $path;
      }
-
-
 }

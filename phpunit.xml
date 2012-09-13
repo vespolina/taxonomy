@@ -1,8 +1,10 @@
-<?xml version="1.0" ?>
-<phpunit bootstrap="tests/bootstrap.php">
-    <testsuites>
-        <testsuite name="Vespolina Taxonomy">
-            <directory suffix="Test.php">./tests</directory>
-        </testsuite>
-    </testsuites>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php" color="true">
+<testsuites>
+    <testsuite name="Vespolina Taxonomy Test Suite">
+        <directory>./tests</directory>
+    </testsuite>
+</testsuites>
+
 </phpunit>
