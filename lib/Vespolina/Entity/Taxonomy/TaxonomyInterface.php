@@ -7,7 +7,7 @@
  */
 namespace Vespolina\Entity\Taxonomy;
 
-use Vespolina\EntityTaxonomy\TermInterface;
+use Vespolina\Entity\Taxonomy\TermInterface;
 
 
 /**
@@ -15,14 +15,45 @@ use Vespolina\EntityTaxonomy\TermInterface;
  */
 interface TaxonomyInterface
 {
-
     /**
-     * Add a term to this taxonomy
+     * Add a term to the collection
      *
-     * @abstract
      * @param TermInterface $term
      */
-    function addTerm(TermInterface $term, TermInterface $parent = null);
+    function addTerm(TermInterface $term);
+
+    /**
+     * Add a collection of terms
+     *
+     * @param array $terms
+     */
+    function addTerms(array $terms);
+
+    /**
+     * Remove all terms from the collection
+     */
+    function clearTerms();
+
+    /**
+     * Return a collection of terms
+     *
+     * @return array of terms
+     */
+    function getTerms();
+
+    /**
+     * Remove a term from the collection
+     *
+     * @param TermInterface $term
+     */
+    function removeTerm(TermInterface $term);
+
+    /**
+     * Set a collection of terms
+     *
+     * @param array $terms
+     */
+    function setTerms(array $terms);
 
     /**
      * Get the taxonomy name
@@ -32,16 +63,6 @@ interface TaxonomyInterface
      * @return string
      */
     function getName();
-
-    /**
-     * Number of terms this taxonomy holds
-     *
-     * @abstract
-     *
-     */
-    function getNumberOfTerms();
-
-    function getTerms($level = null);
 
     /**
      * Retrieve the taxonomy type

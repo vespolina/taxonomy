@@ -8,7 +8,7 @@
 
 namespace Vespolina\Entity\Taxonomy;
 
-use Vespolina\EntityTaxonomy\TaxonomyInterface;
+use Vespolina\Entity\Taxonomy\TaxonomyInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -16,32 +16,66 @@ use Vespolina\EntityTaxonomy\TaxonomyInterface;
 class Taxonomy implements TaxonomyInterface
 {
     protected $isHierarchical;
-    protected $numberOfTerms;
     protected $name;
     protected $terms;
     protected $type;
 
-    public function __construct(boolean $isHierarchical = false)
+    public function __construct($isHierarchical = false)
     {
         $this->isHierarchical = $isHierarchical;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function addTerm(TermInterface $term)
     {
+        $this->terms[] = $term;
+    }
 
-        if (!$path = $term->getPath()) {
-            $path = $this->slugify($term->getName());
-            $term->setPath($path);
+    /**
+     * @inheritdoc
+     */
+    public function addTerms(array $terms)
+    {
+        $this->terms = array_merge($this->terms, $terms);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function clearTerms()
+    {
+        $this->terms = array();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getTerms()
+    {
+        return $this->terms;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeTerm(TermInterface $term)
+    {
+        foreach ($this->terms as $key => $termToCompare) {
+            if ($termToCompare == $term) {
+                unset($this->terms[$key]);
+                break;
+            }
         }
+    }
 
-
-        if ($parentTerm) {
-
-        }
-        else{
-
-            $this->terms[$path] = $term;
-        }
+    /**
+     * @inheritdoc
+     */
+    public function setTerms(array $terms)
+    {
+        $this->terms = $terms;
     }
 
     /**
@@ -55,35 +89,17 @@ class Taxonomy implements TaxonomyInterface
     /**
      * @inheritdoc
      */
-    public function getNumberOfTerms()
+    public function setName($name)
     {
-        return $this->numberOfTerms;
-    }
-
-     /**
-       * @inheritdoc
-       */
-    public function getTerms($level = null)
-    {
-        return $this->terms;
-    }
-
-
-    /**
-      * @inheritdoc
-      */
-    public function getType()
-    {
-        return $this->type;
+        $this->name = $name;
     }
 
     /**
      * @inheritdoc
      */
-    public function setName($name)
+    public function getType()
     {
-
-        $this->name = $name;
+        return $this->type;
     }
 
      /**
@@ -91,7 +107,6 @@ class Taxonomy implements TaxonomyInterface
       */
     public function setType($type)
     {
-
         $this->type = $type;
     }
 
@@ -99,5 +114,4 @@ class Taxonomy implements TaxonomyInterface
      {
          return preg_replace('/[^a-z0-9_\s-]/', '', preg_replace("/[\s_]/", "-", preg_replace('!\s+!', ' ', strtolower(trim($text)))));
      }
-
 }
