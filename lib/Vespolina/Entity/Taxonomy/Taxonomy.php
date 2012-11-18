@@ -15,6 +15,7 @@ use Vespolina\Entity\Taxonomy\TaxonomyInterface;
  */
 class Taxonomy implements TaxonomyInterface
 {
+    protected $id;
     protected $isHierarchical;
     protected $name;
     protected $terms;
