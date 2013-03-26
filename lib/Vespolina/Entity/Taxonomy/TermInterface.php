@@ -67,33 +67,33 @@ interface TermInterface
      *
      * @param TermInterface $term
      */
-    function addChild(TermInterface $term);
+    function addTerm(TermInterface $term);
 
     /**
      * Add a collection of terms
      *
      * @param array $terms
      */
-    function addChildren(array $terms);
+    function addTerms(array $terms);
 
     /**
      * Remove all terms from the collection
      */
-    function clearChildren();
+    function clearTerms();
 
     /**
-     * Return the children terms
+     * Return the terms children
      *
      * @return array of terms
      */
-    function getChildren();
+    function getTerms();
 
     /**
      * Remove a child from the term
      *
      * @param TermInterface $term
      */
-    function removeChild(TermInterface $term);
+    function removeTerm(TermInterface $term);
 
     /**
      * Set a collection of terms as the children
@@ -101,7 +101,7 @@ interface TermInterface
      * @param array $terms
      * @return \Vespolina\Entity\Taxonomy\TermInterface
      */
-    function setChildren(array $terms);
+    function setTerms(array $terms);
     
     /**
      * Get the taxonomy name
