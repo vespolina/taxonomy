@@ -15,68 +15,19 @@ use Vespolina\Entity\Taxonomy\TermInterface;
  */
 interface TaxonomyInterface
 {
-    /**
-     * Add a term to the collection
-     *
-     * @param TermInterface $term
-     */
-    function addTerm(TermInterface $term);
-
-    /**
-     * Add a collection of terms
-     *
-     * @param array $terms
-     */
-    function addTerms(array $terms);
-
-    /**
-     * Remove all terms from the collection
-     */
-    function clearTerms();
-
-    /**
-     * Return a collection of terms
-     *
-     * @return array of terms
-     */
-    function getTerms();
-
-    /**
-     * Remove a term from the collection
-     *
-     * @param TermInterface $term
-     */
-    function removeTerm(TermInterface $term);
-
-    /**
-     * Set a collection of terms
-     *
-     * @param array $terms
-     */
-    function setTerms(array $terms);
-
-    /**
-     * Get the taxonomy name
-     * eg. Taxonomy_hierarchy
-     *
-     * @abstract
-     * @return string
-     */
-    function getName();
-
-    /**
-     * Retrieve the taxonomy type
-     *
-     * Possible options are:
-     *  - hierarchical
-     *  - tags
-     *
-     * @abstract
-     *
-     */
-    function getType();
+    function getId();
 
     function setName($name);
 
-    function setType($type);
+    function getName();
+
+    function setParent(TaxonomyInterface $parent = null);
+
+    function getParent();
+
+    function getLevel();
+
+    function getPath();
+
+    function getLockTime();
 }

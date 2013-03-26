@@ -16,108 +16,54 @@ use Vespolina\Entity\Taxonomy\TaxonomyInterface;
 class Taxonomy implements TaxonomyInterface
 {
     protected $id;
-    protected $isHierarchical;
-    protected $name;
-    protected $terms;
-    protected $type;
 
-    public function __construct($isHierarchical = false)
-    {
-        $this->isHierarchical = $isHierarchical;
-    }
+    protected $name;
+
+    protected $path;
+
+    protected $parent;
+
+    protected $level;
+
+    protected $lockTime;
 
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function addTerm(TermInterface $term)
-    {
-        $this->terms[] = $term;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addTerms(array $terms)
-    {
-        $this->terms = array_merge($this->terms, $terms);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function clearTerms()
-    {
-        $this->terms = array();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getTerms()
-    {
-        return $this->terms;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function removeTerm(TermInterface $term)
-    {
-        foreach ($this->terms as $key => $termToCompare) {
-            if ($termToCompare == $term) {
-                unset($this->terms[$key]);
-                break;
-            }
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setTerms(array $terms)
-    {
-        $this->terms = $terms;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getType()
+    public function getName()
     {
-        return $this->type;
+        return $this->name;
     }
 
-     /**
-      * @inheritdoc
-      */
-    public function setType($type)
+    public function setParent(TaxonomyInterface $parent = null)
     {
-        $this->type = $type;
+        $this->parent = $parent;
     }
 
-     protected function slugify($text)
-     {
-         return preg_replace('/[^a-z0-9_\s-]/', '', preg_replace("/[\s_]/", "-", preg_replace('!\s+!', ' ', strtolower(trim($text)))));
-     }
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function getLockTime()
+    {
+        return $this->lockTime;
+    }
 }
