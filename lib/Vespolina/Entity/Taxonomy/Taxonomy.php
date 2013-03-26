@@ -26,6 +26,11 @@ class Taxonomy implements TaxonomyInterface
         $this->isHierarchical = $isHierarchical;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * @inheritdoc
      */
