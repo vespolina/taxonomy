@@ -16,7 +16,7 @@ use Vespolina\Entity\Taxonomy\TermInterface;
 class Term implements TermInterface
 {
     protected $attributes;
-    protected $children;
+    protected $terms;
     protected $name;
     protected $path;
     protected $parent;
@@ -25,7 +25,6 @@ class Term implements TermInterface
     {
         $this->name = $name;
     }
-
 
     /**
      * @inheritdoc
@@ -86,14 +85,16 @@ class Term implements TermInterface
     public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
+
+        return $this;
     }
 
     /**
      * @inheritdoc
      */
-    public function addChild(TermInterface $term)
+    public function addTerm(TermInterface $term)
     {
-        $this->children[] = $term;
+        $this->terms[] = $term;
         $rc = new \ReflectionProperty($term, 'parent');
         $rc->setAccessible(true);
         $rc->setValue($term, $this);
@@ -103,45 +104,45 @@ class Term implements TermInterface
     /**
      * @inheritdoc
      */
-    public function addChildren(array $terms)
+    public function addTerms(array $terms)
     {
         foreach ($terms as $term) {
-            $this->addChild($term);
+            $this->addTerm($term);
         }
     }
 
     /**
      * @inheritdoc
      */
-    public function clearChildren()
+    public function clearTerms()
     {
         $rc = new \ReflectionProperty($this, 'parent');
         $rc->setAccessible(true);
 
-        foreach ($this->children as $term) {
+        foreach ($this->terms as $term) {
             $rc->setValue($term, null);
         }
         $rc->setAccessible(false);
 
-        $this->children = array();
+        $this->terms = array();
     }
 
     /**
      * @inheritdoc
      */
-    public function getChildren()
+    public function getTerms()
     {
-        return $this->children;
+        return $this->terms;
     }
 
     /**
      * @inheritdoc
      */
-    public function removeChild(TermInterface $term)
+    public function removeTerm(TermInterface $term)
     {
-        foreach ($this->children as $key => $termToCompare) {
+        foreach ($this->terms as $key => $termToCompare) {
             if ($termToCompare == $term) {
-                unset($this->children[$key]);
+                unset($this->terms[$key]);
                 $rc = new \ReflectionProperty($term, 'parent');
                 $rc->setAccessible(true);
                 $rc->setValue($term, null);
@@ -155,10 +156,12 @@ class Term implements TermInterface
     /**
      * @inheritdoc
      */
-    public function setChildren(array $terms)
+    public function setTerms(array $terms)
     {
-        $this->clearChildren();
-        $this->addChildren($terms);
+        $this->clearTerms();
+        $this->addTerms($terms);
+
+        return $this;
     }
 
     /**
@@ -168,12 +171,15 @@ class Term implements TermInterface
     {
         return $this->name;
     }
+
     /**
      * @inheritdoc
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -190,6 +196,8 @@ class Term implements TermInterface
     public function setPath($path)
     {
         $this->path = $path;
+
+        return $this;
     }
 
     /**
