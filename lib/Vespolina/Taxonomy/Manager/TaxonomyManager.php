@@ -10,13 +10,15 @@ namespace Vespolina\Taxonomy\Manager;
 
 use Vespolina\Entity\Taxonomy\TaxonomyInterface;
 use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
+use Vespolina\Taxonomy\Manager\TaxonomyManagerInterface;
 use Vespolina\Exception\InvalidConfigurationException;
 
 /**
  * TaxonomyManager - handles taxonomy creation, updating, deletion, etc
  *
+ * @author Jarrett Croll <jarrett.croll@gmail.com>
  */
-class TaxonomyManager
+class TaxonomyManager implements TaxonomyManagerInterface
 {
     protected $gateway;
     protected $taxonomyClass;
