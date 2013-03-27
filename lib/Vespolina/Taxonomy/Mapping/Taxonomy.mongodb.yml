@@ -1,0 +1,62 @@
+Vespolina\Entity\Taxonomy\Taxonomy:
+    type:               document
+    repositoryClass:    Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository
+    collection:         v_taxonomy
+    gedmo:
+        tree:
+            type: materializedPath
+            activateLocking: true
+    indexes:
+        name_parent:
+            options:
+                unique: true
+            keys:
+                 name: true
+                 parent: true
+    fields:
+        id:
+            id:     true
+        name:
+            type:   string
+            gedmo:
+                -   sluggable
+        slug:
+            type:   string
+            gedmo:
+                0:  treePathSource
+                slug:
+                    unique:     false
+                    fields:
+                        - title
+        path:
+            type:   string
+            gedmo:
+                treePath:
+                    separator:           '/'
+                    appendId:            false
+                    startsWithSeparator: false  # default
+                    endsWithSeparator:   true   # default
+        level:
+            type:   int
+            name:   lvl
+            nullable:   true
+            gedmo:
+                -   treeLevel
+        lockTime:
+            type:   date
+            gedmo:
+                -   treeLockTime
+        hash:
+            type:   string
+            gedmo:
+                -   treePathHash
+        parent:
+            reference:  true
+            type:       one
+            inversedBy: children
+            targetDocument: Vespolina\Entity\Taxonomy\Taxonomy
+            simple:     true
+            gedmo:
+                -   treeParent
+        attributes:
+            type: hash
