@@ -1,5 +1,5 @@
 Vespolina\Entity\Taxonomy\Taxonomy:
-    type:               mappedSuperclass
+    type:               document
     repositoryClass:    Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository
     collection:         v_taxonomy
     gedmo:
@@ -47,7 +47,7 @@ Vespolina\Entity\Taxonomy\Taxonomy:
             reference:  true
             type:       one
             inversedBy: children
-            targetDocument: Vespolina\Entity\Taxonomy
+            targetDocument: Vespolina\Entity\Taxonomy\Taxonomy
             simple:     true
             gedmo:
                 -   treeParent
