@@ -16,67 +16,29 @@ use Vespolina\Entity\Taxonomy\TaxonomyInterface;
 class Taxonomy implements TaxonomyInterface
 {
     protected $id;
-    protected $isHierarchical;
     protected $name;
-    protected $terms;
-    protected $type;
+    protected $path;
+    protected $parent;
+    protected $level;
+    protected $lockTime;
+    protected $attributes;
 
-    public function __construct($isHierarchical = false)
+    /**
+     * @inheritdoc
+     */
+    public function getId()
     {
-        $this->isHierarchical = $isHierarchical;
+        return $this->id;
     }
 
     /**
      * @inheritdoc
      */
-    public function addTerm(TermInterface $term)
+    public function setName($name)
     {
-        $this->terms[] = $term;
-    }
+        $this->name = $name;
 
-    /**
-     * @inheritdoc
-     */
-    public function addTerms(array $terms)
-    {
-        $this->terms = array_merge($this->terms, $terms);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function clearTerms()
-    {
-        $this->terms = array();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getTerms()
-    {
-        return $this->terms;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function removeTerm(TermInterface $term)
-    {
-        foreach ($this->terms as $key => $termToCompare) {
-            if ($termToCompare == $term) {
-                unset($this->terms[$key]);
-                break;
-            }
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setTerms(array $terms)
-    {
-        $this->terms = $terms;
+        return $this;
     }
 
     /**
@@ -90,29 +52,113 @@ class Taxonomy implements TaxonomyInterface
     /**
      * @inheritdoc
      */
-    public function setName($name)
+    public function setParent(TaxonomyInterface $parent = null)
     {
-        $this->name = $name;
+        $this->parent = $parent;
+
+        return $this;
     }
 
     /**
      * @inheritdoc
      */
-    public function getType()
+    public function getParent()
     {
-        return $this->type;
+        return $this->parent;
     }
 
-     /**
-      * @inheritdoc
-      */
-    public function setType($type)
+    /**
+     * @inheritdoc
+     */
+    public function getLevel()
     {
-        $this->type = $type;
+        return $this->level;
     }
 
-     protected function slugify($text)
-     {
-         return preg_replace('/[^a-z0-9_\s-]/', '', preg_replace("/[\s_]/", "-", preg_replace('!\s+!', ' ', strtolower(trim($text)))));
-     }
+    /**
+     * @inheritdoc
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLockTime()
+    {
+        return $this->lockTime;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addAttribute($name, $value)
+    {
+        $this->attributes[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addAttributes(array $attributes)
+    {
+        $this->attributes = array_merge($this->attributes, $attributes);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function clearAttributes()
+    {
+        $this->attributes = array();
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAttribute($name)
+    {
+        if (isset($this->attributes[$name])) {
+
+            return $this->attributes[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeAttribute($name)
+    {
+        unset($this->attributes[$name]);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+
+        return $this;
+    }
 }

@@ -16,67 +16,94 @@ use Vespolina\Entity\Taxonomy\TermInterface;
 interface TaxonomyInterface
 {
     /**
-     * Add a term to the collection
-     *
-     * @param TermInterface $term
+     * @return integer
      */
-    function addTerm(TermInterface $term);
+    function getId();
 
     /**
-     * Add a collection of terms
-     *
-     * @param array $terms
+     * @param string $name
+     * @return TaxonomyInterface
      */
-    function addTerms(array $terms);
+    function setName($name);
 
     /**
-     * Remove all terms from the collection
-     */
-    function clearTerms();
-
-    /**
-     * Return a collection of terms
-     *
-     * @return array of terms
-     */
-    function getTerms();
-
-    /**
-     * Remove a term from the collection
-     *
-     * @param TermInterface $term
-     */
-    function removeTerm(TermInterface $term);
-
-    /**
-     * Set a collection of terms
-     *
-     * @param array $terms
-     */
-    function setTerms(array $terms);
-
-    /**
-     * Get the taxonomy name
-     * eg. Taxonomy_hierarchy
-     *
-     * @abstract
      * @return string
      */
     function getName();
 
     /**
-     * Retrieve the taxonomy type
-     *
-     * Possible options are:
-     *  - hierarchical
-     *  - tags
-     *
-     * @abstract
-     *
+     * @param TaxonomyInterface $parent
+     * @return TaxonomyInterface
      */
-    function getType();
+    function setParent(TaxonomyInterface $parent = null);
 
-    function setName($name);
+    /**
+     * @return null|TaxonomyInterface
+     */
+    function getParent();
 
-    function setType($type);
+    /**
+     * @return integer
+     */
+    function getLevel();
+
+    /**
+     * @return string
+     */
+    function getPath();
+
+    /**
+     * @return \DateTime
+     */
+    function getLockTime();
+
+    /**
+     * Add an attribute to the collection
+     *
+     * @param $name
+     * @param $value
+     * @return mixed
+     */
+    function addAttribute($name, $value);
+
+    /**
+     * Add a collection of Attribute
+     *
+     * @param array $attributes
+     */
+    function addAttributes(array $attributes);
+
+    /**
+     * Remove all attributes from the collection
+     */
+    function clearAttributes();
+
+    /**
+     * Return a specific attribute from the collection
+     *
+     * @param $name
+     */
+    function getAttribute($name);
+
+    /**
+     * Return a collection of Attribute
+     *
+     * @return array of attributes
+     */
+    function getAttributes();
+
+    /**
+     * Remove an attribute from the collection
+     *
+     * @param string $name
+     */
+    function removeAttribute($name);
+
+    /**
+     * Set a collection of Attribute
+     *
+     * @param array $attributes
+     * @return \Vespolina\Entity\Taxonomy\TermInterface
+     */
+    function setAttributes(array $attributes);
 }
