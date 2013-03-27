@@ -6,6 +6,13 @@ Vespolina\Entity\Taxonomy\Taxonomy:
         tree:
             type: materializedPath
             activateLocking: true
+    indexes:
+        name_parent:
+            options:
+                unique: true
+            keys:
+                 name: true
+                 parent: true
     fields:
         id:
             id:     true

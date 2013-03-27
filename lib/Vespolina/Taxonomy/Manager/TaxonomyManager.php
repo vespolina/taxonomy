@@ -71,12 +71,23 @@ class TaxonomyManager
     /**
      * {@inheritdoc}
      */
-    public function findOneByTaxonomyId($taxonomyId)
+    public function findOneByTaxonomyId($id)
     {
         $query = $this->gateway->createQuery('Select');
-        $query->filterEqual('taxonomyId', $taxonomyId);
+        $query->filterEqual('id', $id);
 
         return $this->gateway->findTaxonomy($query);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllWithParentId($parentId)
+    {
+        $query = $this->gateway->createQuery('Select');
+        $query->filterEqual('parent', $parentId);
+
+        return $this->gateway->findTaxonomies($query);
     }
 
     /**
