@@ -37,6 +37,8 @@ class Taxonomy implements TaxonomyInterface
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -53,6 +55,8 @@ class Taxonomy implements TaxonomyInterface
     public function setParent(TaxonomyInterface $parent = null)
     {
         $this->parent = $parent;
+
+        return $this;
     }
 
     /**
@@ -93,6 +97,8 @@ class Taxonomy implements TaxonomyInterface
     public function addAttribute($name, $value)
     {
         $this->attributes[$name] = $value;
+
+        return $this;
     }
 
     /**
@@ -101,6 +107,8 @@ class Taxonomy implements TaxonomyInterface
     public function addAttributes(array $attributes)
     {
         $this->attributes = array_merge($this->attributes, $attributes);
+
+        return $this;
     }
 
     /**
@@ -109,6 +117,8 @@ class Taxonomy implements TaxonomyInterface
     public function clearAttributes()
     {
         $this->attributes = array();
+
+        return $this;
     }
 
     /**
@@ -138,6 +148,8 @@ class Taxonomy implements TaxonomyInterface
     public function removeAttribute($name)
     {
         unset($this->attributes[$name]);
+
+        return $this;
     }
 
     /**

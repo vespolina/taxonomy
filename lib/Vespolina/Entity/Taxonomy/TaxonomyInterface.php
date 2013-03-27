@@ -15,20 +15,46 @@ use Vespolina\Entity\Taxonomy\TermInterface;
  */
 interface TaxonomyInterface
 {
+    /**
+     * @return integer
+     */
     function getId();
 
+    /**
+     * @param string $name
+     * @return TaxonomyInterface
+     */
     function setName($name);
 
+    /**
+     * @return string
+     */
     function getName();
 
+    /**
+     * @param TaxonomyInterface $parent
+     * @return TaxonomyInterface
+     */
     function setParent(TaxonomyInterface $parent = null);
 
+    /**
+     * @return null|TaxonomyInterface
+     */
     function getParent();
 
+    /**
+     * @return integer
+     */
     function getLevel();
 
+    /**
+     * @return string
+     */
     function getPath();
 
+    /**
+     * @return \DateTime
+     */
     function getLockTime();
 
     /**
