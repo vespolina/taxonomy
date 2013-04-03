@@ -1,34 +1,34 @@
 <?php
 
-namespace Vespolina\Taxanomy\Gateway;
+namespace Vespolina\Taxonomy\Gateway;
 
 use Molino\SelectQueryInterface;
-use Vespolina\Entity\Taxanomy\TaxanomyInterface;
+use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 
 /**
  * @author Richard Shank <develop@zestic.com>
  */
-interface TaxanomyGatewayInterface
+interface TaxonomyGatewayInterface
 {
     /**
-     * Delete a Taxanomy that has been persisted and optionally flush that link.
+     * Delete a TaxonomyNode that has been persisted and optionally flush that link.
      * Systems that allow for a delayed flush can use the $andFlush parameter, other
      * systems would disregard the flag. The success of the process is returned.
      *
-     * @param \Vespolina\Entity\TaxanomyInterface $taxanomy
+     * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $TaxonomyNode
      *
      * @param boolean $andFlush
      */
-    function deleteTaxanomy(TaxanomyInterface $taxanomy, $andFlush = false);
+    function deleteTaxonomyNode(TaxonomyNodeInterface $TaxonomyNode, $andFlush = false);
 
     /**
-     * Find a Taxanomy by the value in a field or combination of fields
+     * Find a Taxonomy Node by the value in a field or combination of fields
      *
-     * @param \Gateway\QueryInterface $query
+     * @param Molino\SelectQueryInterface $query
      *
-     * @return an instance of Vespolina\Entity\TaxanomyInterface or an array of instances of Vespolina\Entity\TaxanomyInterface
+     * @return an instance of Vespolina\Entity\Taxonomy\TaxonomyNodeInterface or an array of instances of Vespolina\Entity\Taxonomy\TaxonomyInterface
      */
-    function findTaxanomy(SelectQueryInterface $query = null);
+    function findTaxonomyNode(SelectQueryInterface $query = null);
 
     /**
      * Flush any changes to the database
@@ -36,24 +36,24 @@ interface TaxanomyGatewayInterface
     function flush();
 
     /**
-     * Persist a Taxanomy that has been created and optionally flush that link.
+     * Persist a TaxonomyNode that has been created and optionally flush that link.
      * Systems that allow for a delayed flush can use the $andFlush parameter, other
      * systems would disregard the flag. The success of the process is returned.
      *
-     * @param Vespolina\Entity\TaxanomyInterface $taxanomy
+     * @param Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomyNode
      *
      * @param boolean $andFlush
      */
-    function persistTaxanomy(TaxanomyInterface $taxanomy, $andFlush = false);
+    function persistTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = false);
 
     /**
-     * Update a Taxanomy that has been persisted and optionally flush that link.
+     * Update a TaxonomyNode that has been persisted and optionally flush that link.
      * Systems that allow for a delayed flush can use the $andFlush parameter, other
      * systems would disregard the flag. The success of the process is returned.
      *
-     * @param Vespolina\Entity\TaxanomyInterface $taxanomy
+     * @param Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $TaxonomyNode
      *
      * @param boolean $andFlush
      */
-    function updateTaxanomy(TaxanomyInterface $taxanomy, $andFlush = false);
+    function updateTaxonomyNode(TaxonomyNodeInterface $TaxonomyNode, $andFlush = false);
 }

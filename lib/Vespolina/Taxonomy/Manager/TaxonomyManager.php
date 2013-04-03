@@ -8,8 +8,8 @@
 
 namespace Vespolina\Taxonomy\Manager;
 
-use Vespolina\Entity\Taxonomy\TaxonomyInterface;
-use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
+use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
+use Vespolina\Taxonomy\Gateway\TaxonomyGatewayInterface;
 use Vespolina\Taxonomy\Manager\TaxonomyManagerInterface;
 use Vespolina\Exception\InvalidConfigurationException;
 
@@ -21,42 +21,42 @@ use Vespolina\Exception\InvalidConfigurationException;
 class TaxonomyManager implements TaxonomyManagerInterface
 {
     protected $gateway;
-    protected $taxonomyClass;
+    protected $taxonomyNodeClass;
 
     /**
      * Constructor to setup the taxonomy manager
      *
-     * @param \Vespolina\Taxonomy\Gateway\TaxonomyGateway $gateway
-     * @param string $taxonomyClass
+     * @param \Vespolina\Taxonomy\Gateway\TaxonomyGatewayInterface $gateway
+     * @param string $taxonomyNodeClass
      * @throws InvalidConfigurationException
      */
-    public function __construct(TaxonomyGateway $gateway, $taxonomyClass)
+    public function __construct(TaxonomyGatewayInterface $gateway, $taxonomyNodeClass)
     {
         $this->gateway = $gateway;
 
-        if (!class_exists($taxonomyClass)) {
-            throw new InvalidConfigurationException(sprintf("Class '%s' not found.", $taxonomyClass));
+        if (!class_exists($taxonomyNodeClass)) {
+            throw new InvalidConfigurationException(sprintf("Class '%s' not found.", $taxonomyNodeClass));
         }
-        $this->taxonomyClass = $taxonomyClass;
+        $this->taxonomyNodeClass = $taxonomyNodeClass;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function createTaxonomy()
+    public function createTaxonomyNode()
     {
-        /* @var $taxonomy TaxonomyInterface */
-        $taxonomy = new $this->taxonomyClass;
+        /* @var $taxonomyNode TaxonomyNodeInterface */
+        $taxonomyNode = new $this->taxonomyNodeClass;
 
-        return $taxonomy;
+        return $taxonomyNode;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function deleteTaxonomy(TaxonomyInterface $taxonomy, $andFlush = true)
+    public function deleteTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = true)
     {
-        $this->gateway->deleteTaxonomy($taxonomy);
+        $this->gateway->deleteTaxonomyNode($taxonomyNode);
     }
 
     /**
@@ -67,18 +67,18 @@ class TaxonomyManager implements TaxonomyManagerInterface
         $query = $this->gateway->createQuery('Select');
         $query->filterEqual('id', $id);
 
-        return $this->gateway->findTaxonomy($query);
+        return $this->gateway->findTaxonomyNode($query);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findOneByTaxonomyId($id)
+    public function findOneByTaxonomyNodeId($id)
     {
         $query = $this->gateway->createQuery('Select');
         $query->filterEqual('id', $id);
 
-        return $this->gateway->findTaxonomy($query);
+        return $this->gateway->findTaxonomyNode($query);
     }
 
     /**
@@ -89,7 +89,7 @@ class TaxonomyManager implements TaxonomyManagerInterface
         $query = $this->gateway->createQuery('Select');
         $query->filterEqual('parent', $parentId);
 
-        return $this->gateway->findTaxonomies($query);
+        return $this->gateway->findTaxonomyNodes($query);
     }
 
     /**
@@ -99,13 +99,13 @@ class TaxonomyManager implements TaxonomyManagerInterface
     {
         $query = $this->gateway->createQuery('Select');
 
-        return $this->gateway->findTaxonomies($query);
+        return $this->gateway->findTaxonomyNodes($query);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function updateTaxonomy(TaxonomyInterface $taxonomy, $andFlush = true)
+    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomy, $andFlush = true)
     {
         $this->gateway->updateTaxonomy($taxonomy);
     }
