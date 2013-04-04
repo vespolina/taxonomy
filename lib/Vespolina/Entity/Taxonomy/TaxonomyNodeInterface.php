@@ -7,13 +7,11 @@
  */
 namespace Vespolina\Entity\Taxonomy;
 
-use Vespolina\Entity\Taxonomy\TermInterface;
-
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
-interface TaxonomyInterface
+interface TaxonomyNodeInterface
 {
     /**
      * @return integer
@@ -22,7 +20,7 @@ interface TaxonomyInterface
 
     /**
      * @param string $name
-     * @return TaxonomyInterface
+     * @return TaxonomyNodeInterface
      */
     function setName($name);
 
@@ -32,13 +30,13 @@ interface TaxonomyInterface
     function getName();
 
     /**
-     * @param TaxonomyInterface $parent
-     * @return TaxonomyInterface
+     * @param TaxonomyNodeInterface $parent
+     * @return TaxonomyNodeInterface
      */
-    function setParent(TaxonomyInterface $parent = null);
+    function setParent(TaxonomyNodeInterface $parent = null);
 
     /**
-     * @return null|TaxonomyInterface
+     * @return null|TaxonomyNodeInterface
      */
     function getParent();
 

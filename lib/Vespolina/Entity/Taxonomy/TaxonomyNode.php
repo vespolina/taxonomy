@@ -8,12 +8,12 @@
 
 namespace Vespolina\Entity\Taxonomy;
 
-use Vespolina\Entity\Taxonomy\TaxonomyInterface;
+use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
  */
-class Taxonomy implements TaxonomyInterface
+class TaxonomyNode implements TaxonomyNodeInterface
 {
     protected $id;
     protected $name;
@@ -52,7 +52,7 @@ class Taxonomy implements TaxonomyInterface
     /**
      * @inheritdoc
      */
-    public function setParent(TaxonomyInterface $parent = null)
+    public function setParent(TaxonomyNodeInterface $parent = null)
     {
         $this->parent = $parent;
 

@@ -2,32 +2,32 @@
 
 namespace Vespolina\Taxonomy\Manager;
 
-use Vespolina\Entity\Taxonomy\TaxonomyInterface;
+use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 
 interface TaxonomyManagerInterface 
 {
     /**
-     * @return TaxonomyInterface
+     * @return TaxonomyNodeInterface
      */
-    function createTaxonomy();
+    function createTaxonomyNode();
 
     /**
-     * @param TaxonomyInterface $taxonomy
+     * @param TaxonomyNodeInterface $taxonomyNode
      * @param bool $andFlush
      */
-    function deleteTaxonomy(TaxonomyInterface $taxonomy, $andFlush = true);
+    function deleteTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = true);
 
     /**
      * @param $id
-     * @return TaxonomyInterface
+     * @return TaxonomyNodeInterface
      */
     function find($id);
 
     /**
      * @param $id
-     * @return TaxonomyInterface
+     * @return TaxonomyNodeInterface
      */
-    function findOneByTaxonomyId($id);
+    function findOneByTaxonomyNodeId($id);
 
     /**
      * @param $parentId
@@ -41,8 +41,8 @@ interface TaxonomyManagerInterface
     function findAll();
 
     /**
-     * @param TaxonomyInterface $taxonomy
+     * @param TaxonomyNodeInterface $taxonomyNode
      * @param bool $andFlush Whether to flush the changes (default true)
      */
-    function updateTaxonomy(TaxonomyInterface $taxonomy, $andFlush = true);
+    function updateTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = true);
 }

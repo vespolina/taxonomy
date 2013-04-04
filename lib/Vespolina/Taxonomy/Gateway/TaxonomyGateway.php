@@ -4,25 +4,25 @@ namespace Vespolina\Taxonomy\Gateway;
 
 use Molino\MolinoInterface;
 use Molino\SelectQueryInterface;
-use Vespolina\Entity\Taxonomy\TaxonomyInterface;
+use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 
 class TaxonomyGateway
 {
     protected $molino;
-    protected $taxonomyClass;
+    protected $taxonomyNodeClass;
 
     /**
      * @param \Molino\MolinoInterface $molino
      * @param string $managedClass
      */
-    public function __construct(MolinoInterface $molino, $taxonomyClass)
+    public function __construct(MolinoInterface $molino, $taxonomyNodeClass)
     {
-        if (!class_exists($taxonomyClass) || !in_array('Vespolina\Entity\Taxonomy\TaxonomyInterface', class_implements($taxonomyClass))) {
-            throw new InvalidInterfaceException('Please have your taxonomy class implement Vespolina\Entity\Taxonomy\TaxonomyInterface');
+        if (!class_exists($taxonomyNodeClass) || !in_array('Vespolina\Entity\Taxonomy\TaxonomyNodeInterface', class_implements($taxonomyNodeClass))) {
+            throw new InvalidInterfaceException('Please have your taxonomy node class implement Vespolina\Entity\Taxonomy\TaxonomyNodeInterface');
         }
         $this->molino = $molino;
-        $this->taxonomyClass = $taxonomyClass;
+        $this->taxonomyNodeClass = $taxonomyNodeClass;
     }
 
     /**
@@ -40,50 +40,50 @@ class TaxonomyGateway
         $queryFunction = 'create' . $type . 'Query';
 
         if (!$queryClass) {
-            $queryClass = $this->taxonomyClass;
+            $queryClass = $this->taxonomyNodeClass;
         }
         return $this->molino->$queryFunction($queryClass);
     }
 
     /**
-     * @param \Vespolina\Entity\Taxonomy\TaxonomyInterface $taxonomy
+     * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomyNode
      */
-    public function deleteTaxonomy(TaxonomyInterface $taxonomy)
+    public function deleteTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
     {
-        $this->molino->delete($taxonomy);
+        $this->molino->delete($taxonomyNode);
     }
 
     /**
      * @param \Molino\SelectQueryInterface $query
-     * @return \Vespolina\Entity\Taxonomy\TaxonomyInterface
+     * @return \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface
      */
-    public function findTaxonomy(SelectQueryInterface $query)
+    public function findTaxonomyNode(SelectQueryInterface $query)
     {
         return $query->one();
     }
 
     /**
      * @param \Molino\SelectQueryInterface $query
-     * @return \Vespolina\Entity\Taxonomy\TaxonomyInterface
+     * @return \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface
      */
-    public function findTaxonomies(SelectQueryInterface $query)
+    public function findTaxonomyNodes(SelectQueryInterface $query)
     {
         return $query->all();
     }
 
     /**
-     * @param \Vespolina\Entity\Taxonomy\TaxonomyInterface $taxonomy
+     * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomy
      */
-    public function persistTaxonomy(TaxonomyInterface $taxonomy)
+    public function persistTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
     {
-        $this->molino->save($taxonomy);
+        $this->molino->save($taxonomyNode);
     }
 
     /**
-     * @param \Vespolina\Entity\Taxonomy\TaxonomyInterface $taxonomy
+     * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomy
      */
-    public function updateTaxonomy(TaxonomyInterface $taxonomy)
+    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
     {
-        $this->molino->save($taxonomy);
+        $this->molino->save($taxonomyNode);
     }
 }
