@@ -1,4 +1,4 @@
-Vespolina\Entity\Taxonomy\Taxonomy:
+Vespolina\Entity\Taxonomy\TaxonomyNode:
     type:               document
     repositoryClass:    Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository
     collection:         v_taxonomy
@@ -54,7 +54,7 @@ Vespolina\Entity\Taxonomy\Taxonomy:
             reference:  true
             type:       one
             inversedBy: children
-            targetDocument: Vespolina\Entity\Taxonomy\Taxonomy
+            targetDocument: Vespolina\Entity\Taxonomy\TaxonomyNode
             simple:     true
             gedmo:
                 -   treeParent
