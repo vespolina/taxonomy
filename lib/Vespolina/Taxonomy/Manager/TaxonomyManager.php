@@ -105,8 +105,8 @@ class TaxonomyManager implements TaxonomyManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomy, $andFlush = true)
+    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = true)
     {
-        $this->gateway->updateTaxonomy($taxonomy);
+        $this->gateway->updateTaxonomyNode($taxonomyNode);
     }
 }

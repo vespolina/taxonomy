@@ -7,7 +7,7 @@ use Molino\SelectQueryInterface;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 
-class TaxonomyGateway
+class TaxonomyGateway implements TaxonomyGatewayInterface
 {
     protected $molino;
     protected $taxonomyNodeClass;
@@ -48,7 +48,7 @@ class TaxonomyGateway
     /**
      * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomyNode
      */
-    public function deleteTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
+    public function deleteTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = false)
     {
         $this->molino->delete($taxonomyNode);
     }
@@ -57,7 +57,7 @@ class TaxonomyGateway
      * @param \Molino\SelectQueryInterface $query
      * @return \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface
      */
-    public function findTaxonomyNode(SelectQueryInterface $query)
+    public function findTaxonomyNode(SelectQueryInterface $query = null)
     {
         return $query->one();
     }
@@ -74,7 +74,7 @@ class TaxonomyGateway
     /**
      * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomy
      */
-    public function persistTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
+    public function persistTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = false)
     {
         $this->molino->save($taxonomyNode);
     }
@@ -82,8 +82,13 @@ class TaxonomyGateway
     /**
      * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomy
      */
-    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomyNode)
+    public function updateTaxonomyNode(TaxonomyNodeInterface $taxonomyNode, $andFlush = false)
     {
         $this->molino->save($taxonomyNode);
+    }
+
+    public function flush()
+    {
+
     }
 }
