@@ -9,7 +9,7 @@ interface TaxonomyManagerInterface
     /**
      * @return TaxonomyNodeInterface
      */
-    function createTaxonomyNode();
+    function createTaxonomyNode($name, TaxonomyNodeInterface $parent = null);
 
     /**
      * @param TaxonomyNodeInterface $taxonomyNode

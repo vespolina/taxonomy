@@ -41,9 +41,7 @@ class TaxonomyManipulator
         $nodes = array();
         foreach($data as $key => $value) {
 
-            $itemNode = $this->taxonomyManager->createTaxonomyNode();
-            $itemNode->setName($key);
-            $itemNode->setParent($parent);
+            $itemNode = $this->taxonomyManager->createTaxonomyNode($key, $parent);
 
             //Walk through children if existent
             if (null != $value && is_array($value)) {

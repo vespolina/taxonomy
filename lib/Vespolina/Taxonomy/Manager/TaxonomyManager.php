@@ -43,10 +43,15 @@ class TaxonomyManager implements TaxonomyManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createTaxonomyNode()
+    public function createTaxonomyNode($name, TaxonomyNodeInterface $parent = null)
     {
         /* @var $taxonomyNode TaxonomyNodeInterface */
         $taxonomyNode = new $this->taxonomyNodeClass;
+        $taxonomyNode->setName($name);
+
+        if (null != $parent) {
+            $taxonomyNode->setParent($parent);
+        }
 
         return $taxonomyNode;
     }
