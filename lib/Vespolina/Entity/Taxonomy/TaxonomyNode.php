@@ -62,6 +62,9 @@ class TaxonomyNode implements TaxonomyNodeInterface
     public function setParent(TaxonomyNodeInterface $parent = null)
     {
         $this->parent = $parent;
+        if ($parent) {
+            $parent->addChild($this);
+        }
 
         return $this;
     }
