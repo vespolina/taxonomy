@@ -7,6 +7,7 @@
  */
 namespace Vespolina\Entity\Taxonomy;
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -104,4 +105,32 @@ interface TaxonomyNodeInterface
      * @return \Vespolina\Entity\Taxonomy\TermInterface
      */
     function setAttributes(array $attributes);
+
+    /**
+     * @param TaxonomyNodeInterface $taxonomyNode
+     * @return TaxonomyNodeInterface
+     */
+    function addChild(TaxonomyNodeInterface $taxonomyNode);
+
+    /**
+     * @param TaxonomyNodeInterface $taxonomyNode
+     * @return TaxonomyNodeInterface
+     */
+    function removeChild(TaxonomyNodeInterface $taxonomyNode);
+
+    /**
+     * @param array $children
+     * @return TaxonomyNodeInterface
+     */
+    function setChildren(array $children);
+
+    /**
+     * @return ArrayCollection
+     */
+    function getChildren();
+
+    /**
+     * @return TaxonomyNodeInterface
+     */
+    function clearChildren();
 }
