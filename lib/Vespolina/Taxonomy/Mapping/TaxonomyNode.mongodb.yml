@@ -58,5 +58,11 @@ Vespolina\Entity\Taxonomy\TaxonomyNode:
             simple:     true
             gedmo:
                 -   treeParent
+        children:
+            reference:  true
+            type:       many
+            mappedBy: parent
+            targetDocument: Vespolina\Entity\Taxonomy\TaxonomyNode
+            simple:     true
         attributes:
             type: hash
