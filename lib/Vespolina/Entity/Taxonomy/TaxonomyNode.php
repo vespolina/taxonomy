@@ -9,6 +9,7 @@
 namespace Vespolina\Entity\Taxonomy;
 
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @author Daniel Kucharski <daniel@xerias.be>
@@ -19,9 +20,15 @@ class TaxonomyNode implements TaxonomyNodeInterface
     protected $name;
     protected $path;
     protected $parent;
+    protected $children;
     protected $level;
     protected $lockTime;
     protected $attributes;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * @inheritdoc
@@ -55,6 +62,9 @@ class TaxonomyNode implements TaxonomyNodeInterface
     public function setParent(TaxonomyNodeInterface $parent = null)
     {
         $this->parent = $parent;
+        if ($parent) {
+            $parent->addChild($this);
+        }
 
         return $this;
     }
@@ -158,6 +168,68 @@ class TaxonomyNode implements TaxonomyNodeInterface
     public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function addChild(TaxonomyNodeInterface $taxonomyNode)
+    {
+        if ($this->children->contains($taxonomyNode)) {
+
+            return $this;
+        }
+
+        $this->children[] = $taxonomyNode;
+        $taxonomyNode->setParent($this);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function removeChild(TaxonomyNodeInterface $taxonomyNode)
+    {
+        if (!$this->children->contains($taxonomyNode)) {
+
+            return $this;
+        }
+
+        $this->children->removeElement($taxonomyNode);
+        $taxonomyNode->setParent(null);
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setChildren(array $children)
+    {
+        foreach ($children as $child) {
+            $this->addChild($child);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function clearChildren()
+    {
+        $this->children = new ArrayCollection();
 
         return $this;
     }
