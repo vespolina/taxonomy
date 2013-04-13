@@ -19,15 +19,7 @@ Vespolina\Entity\Taxonomy\TaxonomyNode:
         name:
             type:   string
             gedmo:
-                -   sluggable
-        slug:
-            type:   string
-            gedmo:
-                0:  treePathSource
-                slug:
-                    unique:     false
-                    fields:
-                        - title
+                -   treePathSource
         path:
             type:   string
             gedmo:
@@ -46,10 +38,6 @@ Vespolina\Entity\Taxonomy\TaxonomyNode:
             type:   date
             gedmo:
                 -   treeLockTime
-        hash:
-            type:   string
-            gedmo:
-                -   treePathHash
         parent:
             reference:  true
             type:       one
@@ -58,5 +46,11 @@ Vespolina\Entity\Taxonomy\TaxonomyNode:
             simple:     true
             gedmo:
                 -   treeParent
+        children:
+            reference:  true
+            type:       many
+            mappedBy: parent
+            targetDocument: Vespolina\Entity\Taxonomy\TaxonomyNode
+            simple:     true
         attributes:
             type: hash
