@@ -27,7 +27,7 @@ Vespolina\Entity\Taxonomy\TaxonomyNode:
                 slug:
                     unique:     false
                     fields:
-                        - title
+                        - name
         path:
             type:   string
             gedmo:
