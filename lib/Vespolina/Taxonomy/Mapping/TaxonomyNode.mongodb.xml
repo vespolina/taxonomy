@@ -28,7 +28,7 @@
             <gedmo:tree-path separator="," />
         </field>
 
-        <field name="lockTime" type="datetime">
+        <field name="lockTime" type="date">
             <gedmo:tree-lock-time />
         </field>
 

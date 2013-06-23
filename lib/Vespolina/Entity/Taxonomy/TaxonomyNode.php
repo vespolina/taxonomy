@@ -59,7 +59,7 @@ class TaxonomyNode implements TaxonomyNodeInterface
     /**
      * @inheritdoc
      */
-    public function setParent(TaxonomyNodeInterface $parent = null)
+    public function setParent($parent = null)
     {
         $this->parent = $parent;
         if ($parent) {
