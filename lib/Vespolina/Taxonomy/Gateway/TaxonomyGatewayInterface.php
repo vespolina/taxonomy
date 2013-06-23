@@ -22,16 +22,7 @@ interface TaxonomyGatewayInterface
     function deleteTaxonomyNode(TaxonomyNodeInterface $TaxonomyNode, $andFlush = false);
 
     /**
-     * Find a Taxonomy Node by the value in a field or combination of fields
-     *
-     * @param Molino\SelectQueryInterface $query
-     *
-     * @return an instance of Vespolina\Entity\Taxonomy\TaxonomyNodeInterface or an array of instances of Vespolina\Entity\Taxonomy\TaxonomyInterface
-     */
-    function findTaxonomyNode(SelectQueryInterface $query = null);
-
-    /**
-     * Flush any changes to the database
+     * Flush any changes to the gateway
      */
     function flush();
 
