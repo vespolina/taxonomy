@@ -107,6 +107,11 @@ class TaxonomyManager implements TaxonomyManagerInterface
         return $this->gateway->findTaxonomyNodes($query);
     }
 
+    public function matchAll($specification)
+    {
+        return $this->gateway->matchAll($specification);
+    }
+
     /**
      * {@inheritdoc}
      */

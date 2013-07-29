@@ -49,6 +49,10 @@ class TaxonomyPHPCRGateway extends TaxonomyGateway
     {
     }
 
+    public function matchAll($specification)
+    {
+    }
+
     /**
      * @return \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface
      */

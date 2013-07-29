@@ -5,6 +5,7 @@ namespace Vespolina\Taxonomy\Gateway;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
+use Vespolina\Product\Specification\SpecificationInterface;
 
 class TaxonomyDoctrineORMGateway extends TaxonomyGateway
 {
@@ -19,7 +20,7 @@ class TaxonomyDoctrineORMGateway extends TaxonomyGateway
 
     public function createQuery()
     {
-        return $this->em->createQueryBuilder($this->taxonomyNodeClass);
+        return $this->em->createQueryBuilder($this->taxonomyNodeClass, 't');
     }
 
     /**
@@ -33,7 +34,8 @@ class TaxonomyDoctrineORMGateway extends TaxonomyGateway
     protected function executeSpecification(SpecificationInterface $specification, $matchOne = false)
     {
         $queryBuilder = $this->createQuery();
-        $this->getSpecificationWalker()->walk($specification, $queryBuilder);
+        $queryBuilder->select('t')->from($this->taxonomyNodeClass,'t');
+        //$this->getSpecificationWalker()->walk($specification, $queryBuilder);
         $query = $queryBuilder->getQuery();
 
         if ($matchOne) {
@@ -43,6 +45,11 @@ class TaxonomyDoctrineORMGateway extends TaxonomyGateway
 
             return $query->execute();
         }
+    }
+
+    public function matchAll($specification)
+    {
+        return $this->executeSpecification($specification);
     }
 
     public function matchTaxonomyNode($specification)
@@ -84,7 +91,6 @@ class TaxonomyDoctrineORMGateway extends TaxonomyGateway
             $rp->setValue($taxonomyNode, $level);
             $rp->setAccessible(false);
         }
-
         $this->em->persist($taxonomyNode);
         if ($andFlush) $this->flush();
     }
@@ -93,4 +99,6 @@ class TaxonomyDoctrineORMGateway extends TaxonomyGateway
     {
         $this->em->flush();
     }
+
+
 }

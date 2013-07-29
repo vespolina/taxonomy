@@ -46,6 +46,10 @@ class TaxonomyMemoryGateway implements TaxonomyGatewayInterface
         return $this->nodes;
     }
 
+    public function matchAll($specification)
+    {
+    }
+
     /**
      * @param \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface $taxonomy
      */

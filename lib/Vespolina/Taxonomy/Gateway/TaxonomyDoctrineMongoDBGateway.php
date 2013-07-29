@@ -5,6 +5,7 @@ namespace Vespolina\Taxonomy\Gateway;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
+use Vespolina\Product\Specification\SpecificationInterface;
 
 class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
 {
@@ -33,7 +34,7 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
     protected function executeSpecification(SpecificationInterface $specification, $matchOne = false)
     {
         $queryBuilder = $this->createQuery();
-        $this->getSpecificationWalker()->walk($specification, $queryBuilder);
+        //$this->getSpecificationWalker()->walk($specification, $queryBuilder);
         $query = $queryBuilder->getQuery();
 
         if ($matchOne) {
@@ -47,6 +48,12 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
 
     public function matchTaxonomyNode($specification)
     {
+        return $this->executeSpecification($specification, true);
+    }
+
+    public function matchAll($specification)
+    {
+        return $this->executeSpecification($specification);
     }
 
     /**
