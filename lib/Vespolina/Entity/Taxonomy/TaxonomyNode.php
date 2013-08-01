@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class TaxonomyNode implements TaxonomyNodeInterface
 {
+    protected $ancestor;
     protected $id;
     protected $name;
     protected $path;

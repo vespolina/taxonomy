@@ -31,14 +31,14 @@
         <field name="lockTime" type="date">
             <gedmo:tree-lock-time />
         </field>
-
         <reference-one field="parent"
                        fieldName="parent"
                        target-document="Vespolina\Entity\Taxonomy\TaxonomyNode">
             <cascade><all/></cascade>
+            <gedmo:tree-parent/>
         </reference-one>
 
-        <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" />
+        <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" parent="false" />
 
     </document>
 
