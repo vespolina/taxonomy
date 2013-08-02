@@ -13,7 +13,7 @@
             <generator strategy="AUTO"/>
         </id>
 
-        <field name="level" column="lvl" type="integer">
+        <field name="level" column="lvl" type="integer" nullable="true">
             <gedmo:tree-level/>
         </field>
 
@@ -21,12 +21,8 @@
             <gedmo:tree-path-source />
         </field>
 
-        <field name="path" type="string" length="3000">
+        <field name="path" type="string" length="3000" nullable="true">
             <gedmo:tree-path separator="," />
-        </field>
-
-        <field name="lockTime" type="datetime">
-            <gedmo:tree-lock-time />
         </field>
 
         <many-to-one field="parent" target-entity="Vespolina\Entity\Taxonomy\TaxonomyNode">
@@ -34,7 +30,7 @@
             <gedmo:tree-parent/>
         </many-to-one>
 
-        <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" />
+        <gedmo:tree type="materializedPath" activate-locking="false" locking-timeout="10" />
 
     </entity>
 

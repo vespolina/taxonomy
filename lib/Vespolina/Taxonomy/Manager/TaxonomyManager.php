@@ -43,7 +43,7 @@ class TaxonomyManager implements TaxonomyManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function createTaxonomyNode($name, TaxonomyNodeInterface $parent = null)
+    public function createTaxonomyNode($name, $parent = null)
     {
         /* @var $taxonomyNode TaxonomyNodeInterface */
         $taxonomyNode = new $this->taxonomyNodeClass;
@@ -105,6 +105,11 @@ class TaxonomyManager implements TaxonomyManagerInterface
         $query = $this->gateway->createQuery('Select');
 
         return $this->gateway->findTaxonomyNodes($query);
+    }
+
+    public function matchAll($specification)
+    {
+        return $this->gateway->matchAll($specification);
     }
 
     /**

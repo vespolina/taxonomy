@@ -34,7 +34,7 @@ interface TaxonomyNodeInterface
      * @param TaxonomyNodeInterface $parent
      * @return TaxonomyNodeInterface
      */
-    function setParent(TaxonomyNodeInterface $parent = null);
+    function setParent($parent = null);
 
     /**
      * @return null|TaxonomyNodeInterface
