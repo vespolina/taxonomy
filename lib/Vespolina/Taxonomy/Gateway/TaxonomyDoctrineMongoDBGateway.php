@@ -5,7 +5,7 @@ namespace Vespolina\Taxonomy\Gateway;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
-use Vespolina\Product\Specification\SpecificationInterface;
+use Vespolina\Specification\SpecificationInterface;
 
 class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
 {
@@ -33,8 +33,18 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
 
     protected function executeSpecification(SpecificationInterface $specification, $matchOne = false)
     {
-        $queryBuilder = $this->createQuery();
+        $repo = $this->dm->getRepository($this->taxonomyNodeClass);
+
+        //Todo: add a specification walker
         //$this->getSpecificationWalker()->walk($specification, $queryBuilder);
+
+        $queryBuilder = $repo->getChildrenQueryBuilder(null);
+
+        //Construct a materialized child query for the current taxonomy (each root node of the collection is a different taxonomy)
+        $queryBuilder->field('path')->equals(new \MongoRegex('/^'.preg_quote($specification->getTaxonomyName()).'\\-.+/'));
+
+        $taxonomyName = $specification->getTaxonomyName();
+
         $query = $queryBuilder->getQuery();
 
         if ($matchOne) {
@@ -54,13 +64,6 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
     public function matchAll($specification)
     {
         return $this->executeSpecification($specification);
-    }
-
-    /**
-     * @return \Vespolina\Entity\Taxonomy\TaxonomyNodeInterface
-     */
-    public function findTaxonomyNodes(SelectQueryInterface $query)
-    {
     }
 
     /**

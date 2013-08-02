@@ -6,7 +6,7 @@
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd"
                         xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
-    <document name="Vespolina\Entity\Taxonomy\TaxonomyNode" collection="v_taxonomy_node">
+    <document name="Vespolina\Entity\Taxonomy\TaxonomyNode" collection="v_taxonomy_node" repository-class="Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository">
 
         <indexes>
             <index name="name_idx" columns="name"/>
