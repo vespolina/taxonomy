@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd"
+                        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
-    <mapped-superclass name="Vespolina\Entity\Taxonomy\TaxonomyNode" table="v_taxonomy_node">
+    <document name="Vespolina\Entity\Taxonomy\TaxonomyNode" collection="v_taxonomy_node" repository-class="Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository">
 
         <indexes>
             <index name="name_idx" columns="name"/>
         </indexes>
 
-        <id name="id" type="integer" column="id">
+        <field name="id" id="true" column="id">
             <generator strategy="AUTO"/>
-        </id>
+        </field>
 
-        <field name="level" column="lvl" type="integer">
+        <field name="level" column="lvl" type="int">
             <gedmo:tree-level/>
         </field>
 
@@ -25,17 +28,18 @@
             <gedmo:tree-path separator="," />
         </field>
 
-        <field name="lockTime" type="datetime">
+        <field name="lockTime" type="date">
             <gedmo:tree-lock-time />
         </field>
-
-        <many-to-one field="parent" target-entity="Vespolina\Entity\Taxonomy\TaxonomyNode">
-            <join-column name="parent_id" referenced-column-name="id" on-delete="CASCADE"/>
+        <reference-one field="parent"
+                       fieldName="parent"
+                       target-document="Vespolina\Entity\Taxonomy\TaxonomyNode">
+            <cascade><all/></cascade>
             <gedmo:tree-parent/>
-        </many-to-one>
+        </reference-one>
 
-        <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" />
+        <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" parent="false" />
 
-    </mapped-superclass>
+    </document>
 
-</doctrine-mapping>
+</doctrine-mongo-mapping>
