@@ -8,8 +8,6 @@
  */
 namespace Vespolina\Taxonomy\Gateway;
 
-use Molino\MolinoInterface;
-use Molino\SelectQueryInterface;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 
