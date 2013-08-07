@@ -11,7 +11,7 @@ namespace Vespolina\Taxonomy\Gateway;
 use Vespolina\Entity\Taxonomy\TaxonomyNodeInterface;
 use Vespolina\Exception\InvalidInterfaceException;
 use Vespolina\Taxonomy\Gateway\TaxonomyGateway;
-use Vespolina\Product\Specification\SpecificationInterface;
+use Vespolina\Specification\SpecificationInterface;
 
 class TaxonomyDoctrineORMGateway extends TaxonomyGateway
 {
