@@ -47,9 +47,9 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
         $queryBuilder = $repo->getChildrenQueryBuilder(null);
 
         //Construct a materialized child query for the current taxonomy node (each root node of the collection is a different taxonomy)
-        $queryBuilder->field('path')->equals(new \MongoRegex('/^'.preg_quote($specification->getTaxonomyName()).'.+/'));
+        $queryBuilder->field('path')->equals(new \MongoRegex('/^'.preg_quote($specification->getTaxonomyNode()).'.+/'));
 
-        $taxonomyName = $specification->getTaxonomyName();
+        //$taxonomyName = $specification->getTaxonomyNode();
 
         $query = $queryBuilder->getQuery();
 
