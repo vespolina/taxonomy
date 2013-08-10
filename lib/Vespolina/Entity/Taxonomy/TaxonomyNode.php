@@ -28,6 +28,7 @@ class TaxonomyNode implements TaxonomyNodeInterface
     protected $level;
     protected $lockTime;
     protected $attributes;
+    protected $slug;
 
     public function __construct()
     {
@@ -49,6 +50,8 @@ class TaxonomyNode implements TaxonomyNodeInterface
     {
         $this->name = $name;
 
+        $this->updateSlug();
+
         return $this;
     }
 
@@ -58,6 +61,11 @@ class TaxonomyNode implements TaxonomyNodeInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -237,4 +245,10 @@ class TaxonomyNode implements TaxonomyNodeInterface
 
         return $this;
     }
+
+    protected function updateSlug()
+    {
+        $this->slug = strtolower($this->name);
+    }
+
 }
