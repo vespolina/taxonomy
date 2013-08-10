@@ -17,9 +17,9 @@ class TaxonomyNodeSpecification implements SpecificationInterface
     protected $depth;
     protected $taxonomyName;
 
-    public function __construct($taxonomyName = '')
+    public function __construct($taxonomyNodeName = '')
     {
-        $this->taxonomyName = $taxonomyName;
+        $this->taxonomyNodeName = $taxonomyNodeName;
     }
 
     public function getName()
@@ -27,9 +27,9 @@ class TaxonomyNodeSpecification implements SpecificationInterface
         return $this->name;
     }
 
-    public function getTaxonomyName()
+    public function getTaxonomyNodeName()
     {
-        return $this->taxonomyName;
+        return $this->taxonomyNodeName;
     }
 
     public function isSatisfiedBy($taxonomyNode)
