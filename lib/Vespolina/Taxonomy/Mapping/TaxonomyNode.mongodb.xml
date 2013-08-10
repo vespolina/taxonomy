@@ -24,8 +24,11 @@
             <gedmo:tree-path-source />
         </field>
 
+        <field name="slug" type="string"/>
+
+
         <field name="path" type="string" length="3000">
-            <gedmo:tree-path separator="," />
+            <gedmo:tree-path separator="," appendId = "false" />
         </field>
 
         <field name="lockTime" type="date">
