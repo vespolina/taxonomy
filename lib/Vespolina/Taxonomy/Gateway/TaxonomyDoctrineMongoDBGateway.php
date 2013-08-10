@@ -52,6 +52,7 @@ class TaxonomyDoctrineMongoDBGateway extends TaxonomyGateway
             ->field('level')->gt(1);    //Level = taxonomy name
 
         $taxonomyName = $specification->getTaxonomyName();
+
         $query = $queryBuilder->getQuery();
 
         if ($matchOne) {
