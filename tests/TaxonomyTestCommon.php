@@ -13,11 +13,13 @@ abstract class TaxonomyTestCommon extends \PHPUnit_Framework_TestCase
 
     public function createTaxonomyManager()
     {
-            return
-                $this->getMockForAbstractClass('Vespolina\Entity\Taxonomy\TaxonomyManager',
+        return
+            $this->getMockForAbstractClass('Vespolina\Entity\Taxonomy\TaxonomyManager',
                 array(
-                		'Vespolina\TaxonomyBundle\Document\Taxonomy',
-                        'Vespolina\TaxonomyBundle\Document\Term'
-                ));
+            		'Vespolina\TaxonomyBundle\Document\Taxonomy',
+                    'Vespolina\TaxonomyBundle\Document\Term'
+                )
+            )
+        ;
     }
 }
