@@ -21,6 +21,7 @@
         </field>
 
         <field name="name" type="string" length="64">
+            <gedmo:translatable/>
             <gedmo:tree-path-source />
         </field>
 
