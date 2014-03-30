@@ -7,32 +7,23 @@
                         xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
     <document name="Vespolina\Entity\Taxonomy\TaxonomyNode" collection="v_taxonomy_node" repository-class="Gedmo\Tree\Document\MongoDB\Repository\MaterializedPathRepository">
-
-        <indexes>
-            <index name="name_idx" columns="name"/>
-        </indexes>
-
-        <field name="id" id="true" column="id">
-            <generator strategy="AUTO"/>
-        </field>
-
-        <field name="level" column="lvl" type="int">
+        <field name="id" id="true" />
+        <field name="attributes"    fieldName="attributes"  type="hash" />
+        <field name="level"         fieldName="level"       type="int">
             <gedmo:tree-level/>
         </field>
-
-        <field name="name" type="string" length="64">
+        <field name="name"          type="string"           unique="true"   order="asc">
             <gedmo:translatable/>
             <gedmo:tree-path-source />
         </field>
-
         <field name="slug" type="string"/>
 
 
-        <field name="path" type="string" length="3000">
+        <field name="path"          fieldName="path"        type="string">
             <gedmo:tree-path separator="," appendId = "false" />
         </field>
 
-        <field name="lockTime" type="date">
+        <field name="lockTime"      fieldName="lockTime"    type="date">
             <gedmo:tree-lock-time />
         </field>
         <reference-one field="parent"
@@ -43,7 +34,5 @@
         </reference-one>
 
         <gedmo:tree type="materializedPath" activate-locking="true" locking-timeout="10" parent="false" />
-
     </document>
-
 </doctrine-mongo-mapping>
